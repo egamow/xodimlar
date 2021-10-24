@@ -9,6 +9,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        return 'Hello xodimlar';
+        return User::all();
+    }
+
+    public function checkLogin()
+    {
+        return response('check login',200);
     }
 }
