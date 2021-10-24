@@ -94,7 +94,7 @@
                                     <div class="media">
                                         <img class="media-object" src="assets/images/xs/avatar5.jpg" alt="">
                                         <div class="media-body">
-                                            <span class="name">Дадаханов С.М. <span class="time">13 минут аввал</span></span>
+                                            <span class="name">Дадаханов С.<span class="time">13 минут аввал</span></span>
                                             <span class="message">27.12.2021 й. санасига қадар тест топширишингиз зарур </span>
                                         </div>
                                     </div>
