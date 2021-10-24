@@ -24,17 +24,14 @@
                     <div class="company_detail">
                         <h4 class="logo"><img style="width: 30px" src="assets/images/logo-white.png" alt=""> APTS 1.0</h4>
                         <h3>Автоматлаштирилган кадрлар тайёрлаш тизими</h3>
-                        <p>Ушбу тизим "Фарғонаазот" АЖ талаби асосида <br> "Узбек Холдинг" МЧЖ махсус ишлаб чиқилган </p>
+                        <p>Тизим "Фарғонаазот" АЖ талаби асосида ишлаб чиқилган </p>
                         <div class="footer">
                             <ul  class="social_link list-unstyled">
-                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i></a></li>
+                                <li><a href="http://azot.uz" title="Farg'onazot">"Farg'onaazot" АЖ</a></li>
                             </ul>
                             <hr>
-                            <ul>
-                                <li><a href="http://azot.uz" target="_blank">Фарғонаазот</a></li>
-                                <li><a href="http://holding.uz" target="_blank">Узбек-Холдинг</a></li>
+                             <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021.</p>
 
-                            </ul>
                         </div>
                     </div>                    
                 </div>
