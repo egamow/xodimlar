@@ -17,10 +17,9 @@ Route::get('/', function () {
     return view('sign-in');
 });
 
-
-//Route::get('/about', function () {
-//    return view('about');
-//});
+Route::get('/index', function () {
+    return view('index');
+});
 //
 //Route::get('/user', function () {
 //    return view('user');

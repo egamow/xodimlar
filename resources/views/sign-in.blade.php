@@ -1,19 +1,19 @@
 ﻿<!doctype html>
 <html class="no-js " lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-    <title>:: APTS :: Тизимга кириш</title>
-    <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+<title>:: APTS :: Тизимга кириш</title>
+<!-- Favicon-->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/color_skins.css">
+<!-- Custom Css -->
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/color_skins.css">
 </head>
 <body class="theme-black">
 <div class="authentication">
@@ -22,22 +22,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="company_detail">
-                        <h4 class="logo"><img style="width: 30px" src="assets/images/logo-white.png" alt=""> APTS 1.0
-                        </h4>
+                        <h4 class="logo"><img style="width: 30px" src="assets/images/logo-white.png" alt=""> APTS 1.0</h4>
                         <h3>Автоматлаштирилган кадрлар тайёрлаш тизими</h3>
-                        <p>Ушбу тизим "Фарғонаазот" АЖ талаби асосида <br> "Узбек Холдинг" МЧЖ махсус ишлаб чиқилган
-                        </p>
+                        <p>Тизим "Фарғонаазот" АЖ талаби асосида ишлаб чиқилган </p>
                         <div class="footer">
-                            <ul class="social_link list-unstyled">
-                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i></a>
-                                </li>
+                            <ul  class="social_link list-unstyled">
+                                <li><a href="http://azot.uz" title="Farg'onazot">"Farg'onaazot" АЖ</a></li>
                             </ul>
                             <hr>
-                            <ul>
-                                <li><a href="http://azot.uz" target="_blank">Фарғонаазот</a></li>
-                                <li><a href="http://holding.uz" target="_blank">Узбек-Холдинг</a></li>
+                             <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021.</p>
 
-                            </ul>
                         </div>
                     </div>
                 </div>
