@@ -53,7 +53,6 @@
     </div>
 </div>
 <div class="overlay"></div><!-- Overlay For Sidebars -->
-
 <nav class="navbar">
     <div class="container">
         <ul class="nav navbar-nav">
@@ -202,7 +201,6 @@
         </ul>
     </div>
 </nav>
-
 <div class="menu-container">
     <div class="container">
         <div class="row">
@@ -281,7 +279,6 @@
         </div>
     </div>
 </div>
-
 <aside hidden class="right_menu">
     <div id="rightsidebar" class="right-sidebar">
         <ul class="nav nav-tabs">

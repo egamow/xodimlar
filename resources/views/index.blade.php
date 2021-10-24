@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <ul class="breadcrumb float-md-right padding-0">
-                        <li class="breadcrumb-item"><a href="index.blade.php"><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="index"><i class="zmdi zmdi-home"></i></a></li>
                         <li class="breadcrumb-item active">Бош саҳифа</li>
                     </ul>
                 </div>
