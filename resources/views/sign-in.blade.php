@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 
 <!-- Custom Css -->
-<link rel="stylesheet" href="assets/css/main.css">    
+<link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/color_skins.css">
 </head>
 <body class="theme-black">
@@ -28,6 +28,9 @@
                         <div class="footer">
                             <ul  class="social_link list-unstyled">
                                 <li><a href="http://azot.uz" title="Farg'onazot">"Farg'onaazot" АЖ</a></li>
+                        <div class="footer">
+                            <ul  class="social_link list-unstyled">
+                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i></a></li>
                             </ul>
                             <hr>
                              <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021.</p>
