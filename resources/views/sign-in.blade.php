@@ -24,17 +24,15 @@
                     <div class="company_detail">
                         <h4 class="logo"><img style="width: 30px" src="assets/images/logo-white.png" alt=""> APTS 1.0</h4>
                         <h3>Автоматлаштирилган кадрлар тайёрлаш тизими</h3>
-                        <p>Тизим "Фарғонаазот" АЖ талаби асосида ишлаб чиқилган </p>
+                        <p>Тизим "Farg'onazot" АЖ талаби асосида ишлаб чиқилган </p>
                         <div class="footer">
                             <ul  class="social_link list-unstyled">
-                                <li><a href="http://azot.uz" title="Farg'onazot">"Farg'onaazot" АЖ</a></li>
-                        <div class="footer">
-                            <ul  class="social_link list-unstyled">
-                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i></a></li>
+                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i> "Farg'onazot" АЖ</a></li>
                             </ul>
+                        </div>
+                        <div class="footer">
                             <hr>
-                             <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021.</p>
-
+                             <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021</p>
                         </div>
                     </div>                    
                 </div>
@@ -63,6 +61,7 @@
         </div>
     </div>
 </div>
+
 <!-- Jquery Core Js -->
 <script src="assets/bundles/libscripts.bundle.js"></script>
 <script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
