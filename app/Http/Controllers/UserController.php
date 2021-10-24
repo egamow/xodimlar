@@ -14,6 +14,6 @@ class UserController extends Controller
 
     public function checkLogin()
     {
-        return response('check login',200);
+        return response('check login test',200);
     }
 }
