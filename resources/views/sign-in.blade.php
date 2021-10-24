@@ -28,36 +28,35 @@
                         <div class="footer">
                             <ul  class="social_link list-unstyled">
                                 <li><a href="http://azot.uz" title="Farg'onazot">"Farg'onaazot" АЖ</a></li>
+                        <div class="footer">
+                            <ul  class="social_link list-unstyled">
+                                <li><a href="https://azot.uz" title="Farg'onazot"><i class="zmdi zmdi-globe"></i></a></li>
                             </ul>
                             <hr>
                              <p>© APTS. <a href="http://holding.uz" target="_blank">"Узбек-Холдинг" МЧЖ</a>, 2021.</p>
 
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="col-lg-5 col-md-12 offset-lg-1">
                     <div class="card-plain">
                         <div class="header">
                             <h5>Тизимга кириш</h5>
                         </div>
-                        <form class="form" method="post" action="/api/login">
-                            @csrf
+                        <form class="form">
                             <div class="input-group">
-                                <input type="text" name="tabel_number" class="form-control"
-                                       placeholder="Фойдаланувчи табел рақами">
+                                <input type="text" class="form-control" placeholder="Фойдаланувчи табел рақами">
                                 <span class="input-group-addon"><i class="zmdi zmdi-account-circle"></i></span>
                             </div>
                             <div class="input-group">
-                                <input type="password" name="password" placeholder="Калит сўз (парол)"
-                                       class="form-control"/>
+                                <input type="password" placeholder="Калит сўз (парол)" class="form-control" />
                                 <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
-                            </div>
-                            <div class="footer">
-                                <button type="submit" class="btn btn-primary btn-round btn-block">Кириш</button>
-                            </div>
-                            <a href="forgot" class="link">Паролни унутдингизми?</a>
-
+                            </div>                            
                         </form>
+                        <div class="footer">
+                            <a href="index" class="btn btn-primary btn-round btn-block">Кириш</a>
+                        </div>
+                        <a href="forgot" class="link">Паролни унутдингизми?</a>
                     </div>
                 </div>
             </div>
