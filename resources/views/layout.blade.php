@@ -7,14 +7,14 @@
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
     <title>APTS :: @yield('title')</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <link href={{asset("assets/plugins/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
-    <link rel="stylesheet" href={{asset("assets/plugins/morrisjs/morris.css")}} />
-    <link rel="stylesheet" href={{asset("assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css")}}/>
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/plugins/morrisjs/morris.css" />
+    <link rel="stylesheet" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
     <!-- Custom Css -->
-    <link rel="stylesheet" href={{asset("assets/css/main.css")}}>
-    <link rel="stylesheet" href={{asset("assets/css/color_skins.css")}}>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/color_skins.css">
 
-    {{--<link rel="stylesheet" href={{asset("assets/css/style.css">--}}
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body class="theme-black">
@@ -42,12 +42,12 @@
         </div>
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12">
-                <div class="social">
+                <div hidden class="social">
                     <a class="icon" href="https://www.facebook.com/thememakkerteam" target="_blank"><i class="zmdi zmdi-facebook"></i></a>
                     <a class="icon" href="https://www.behance.net/thememakker" target="_blank"><i class="zmdi zmdi-behance"></i></a>
                     <a class="icon" href="#"><i class="zmdi zmdi-twitter"></i></a>
                     <a class="icon" href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    <p>Coded by WrapTheme<br> Designed by <a href="http://thememakker.com/" target="_blank">thememakker.com</a></p>
+                    <p>oded by WrapTheme<br> Designed by <a href="http://thememakker.com/" target="_blank">thememakker.com</a></p>
                 </div>
             </div>
         </div>
@@ -70,13 +70,9 @@
             </li>
             <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
                 <ul class="dropdown-menu pullDown">
-                    <li><a href="mail-inbox.html"><i class="zmdi zmdi-email m-r-10"></i><span>Mail</span></a></li>
-                    <li><a href="contact.html"><i class="zmdi zmdi-accounts-list m-r-10"></i><span>Contacts</span></a></li>
-                    <li><a href="chat.html"><i class="zmdi zmdi-comment-text m-r-10"></i><span>Chat</span></a></li>
-                    <li><a href="invoices.html"><i class="zmdi zmdi-arrows m-r-10"></i><span>Invoices</span></a></li>
-                    <li><a href="events.html"><i class="zmdi zmdi-calendar-note m-r-10"></i><span>Calendar</span></a></li>
-                    <li><a href="javascript:void(0)"><i class="zmdi zmdi-arrows m-r-10"></i><span>Notes</span></a></li>
-                    <li><a href="javascript:void(0)"><i class="zmdi zmdi-view-column m-r-10"></i><span>Taskboard</span></a></li>
+                    <li><a href="contact.html"><i class="zmdi zmdi-account-box-phone m-r-10"></i><span>Контактлар</span></a></li>
+                    <li><a href="invoices.html"><i class="zmdi zmdi-comment-outline m-r-10"></i><span>Изоҳлар</span></a></li>
+                    <li><a href="events.html"><i class="zmdi zmdi-calendar-note m-r-10"></i><span>Календар</span></a></li>
                 </ul>
             </li>
             <li  class="dropdown notifications badgebit"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
@@ -94,8 +90,8 @@
                                     <div class="media">
                                         <img class="media-object" src="assets/images/xs/avatar5.jpg" alt="">
                                         <div class="media-body">
-                                            <span class="name">Дадаханов С.<span class="time">13 минут аввал</span></span>
-                                            <span class="message">27.12.2021 й. санасига қадар тест топширишингиз зарур </span>
+                                            <span class="name">Дадаханов С.<span class="time">13мин аввал</span></span>
+                                            <span class="message">Жорий йилнинг 12 декабр кунига қадар тест топширишингиз зарур! </span>
                                         </div>
                                     </div>
                                 </a>
@@ -105,8 +101,8 @@
                                     <div class="media">
                                         <img class="media-object" src="assets/images/xs/avatar6.jpg" alt="">
                                         <div class="media-body">
-                                            <span class="name">Grayson <span class="time">22min ago</span></span>
-                                            <span class="message">You have 5 unread emails in your inbox.</span>
+                                            <span class="name">Ахмедов К.<span class="time">22мин аввал</span></span>
+                                            <span class="message">Сиз техника хавфсизлиги қоидасини буздингиз</span>
                                         </div>
                                     </div>
                                 </a>
@@ -116,26 +112,16 @@
                                     <div class="media">
                                         <img class="media-object" src="assets/images/xs/avatar3.jpg" alt="">
                                         <div class="media-body">
-                                            <span class="name">Sophia <span class="time">31min ago</span></span>
-                                            <span class="message">OrderPlaced: You received a new oder from Tina.</span>
+                                            <span class="name">Мирзаев З. <span class="time">31мин аввал</span></span>
+                                            <span class="message">"Касбий тайёргарлик" бўйича ўқув гуруҳига қўшилдингиз, </span>
                                         </div>
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="media">
-                                        <img class="media-object" src="assets/images/xs/avatar4.jpg" alt="">
-                                        <div class="media-body">
-                                            <span class="name">Isabella <span class="time">35min ago</span></span>
-                                            <span class="message">Lara added a comment in Blazing Saddles.</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
-                    <li class="footer"> <a href="javascript:void(0);">View All</a> </li>
+                    <li class="footer"> <a href="javascript:void(0);">Барчасини кўриш</a> </li>
                 </ul>
             </li>
             <li hidden class="dropdown task badgebit"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-flag"></i>
@@ -271,7 +257,7 @@
 
                         </ul>
                     </li>
-                    <li><a href="#">Профил</a>
+                    <li><a href="profile">Профил</a>
                     </li>
 
 
@@ -455,17 +441,6 @@
 
 @yield('main_content')
 
-<!-- Jquery Core Js -->
-<script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
-<script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
 
-<script src="assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
-<script src="assets/bundles/sparkline.bundle.js"></script> <!-- sparkline Plugin Js -->
-<script src="assets/plugins/chartjs/Chart.bundle.js"></script> <!-- Chart Plugins Js -->
-<script src="assets/plugins/chartjs/polar_area_chart.js"></script><!-- Polar Area Chart Js -->
-
-<script src="assets/bundles/mainscripts.bundle.js"></script>
-<script src="assets/js/pages/index.js"></script>
-<script src="assets/js/pages/charts/polar_area_chart.js"></script>
 </body>
 </html>

@@ -64,7 +64,7 @@
                 <div class="card">
                     <div class="header">
                         <h2><strong>Ойлик</strong> натижалар</h2>
-                        <ul class="header-dropdown">
+                        <ul  hidden class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="javascript:void(0);">Action</a></li>
@@ -80,7 +80,7 @@
                         <div class="row text-center">
                             <div class="col-4">
                                 <h4 class="margin-0">5,124</h4>
-                                <p>Marketplace</p>
+                                <p>Ижро интизоми</p>
                             </div>
                             <div class="col-4">
                                 <h4 class="margin-0">349</h4>
@@ -98,7 +98,7 @@
                 <div class="card">
                     <div class="header">
                         <h2><strong>Revenue</strong></h2>
-                        <ul class="header-dropdown">
+                        <ul hidden class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="javascript:void(0);">Action</a></li>
@@ -296,7 +296,7 @@
                 <div class="card">
                     <div class="header">
                         <h2><strong>Radar</strong> Chart</h2>
-                        <ul class="header-dropdown">
+                        <ul hidden class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="javascript:void(0);">Action</a></li>
@@ -397,6 +397,20 @@
         </div>
     </div>
 </section>
+<!-- Jquery Core Js -->
+<script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+<script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+
+<script src="assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+<script src="assets/bundles/sparkline.bundle.js"></script> <!-- sparkline Plugin Js -->
+<script src="assets/plugins/chartjs/Chart.bundle.js"></script> <!-- Chart Plugins Js -->
+<script src="assets/plugins/chartjs/polar_area_chart.js"></script><!-- Polar Area Chart Js -->
+
+<script src="assets/bundles/mainscripts.bundle.js"></script>
+<script src="assets/js/pages/index.js"></script>
+<script src="assets/js/pages/charts/polar_area_chart.js"></script>
+
+<script src="assets/js/pages/calendar/calendar.js"></script>
+<script src="assets/js/pages/profile.js"></script>
 
 @endsection
-

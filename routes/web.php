@@ -22,9 +22,10 @@ Route::get('/index', function () {
     return view('index');
 });
 
-//Route::get('/about', function () {
-//    return view('about');
-//});
+Route::get('/profile', function () {
+    return view('profile');
+});
+
 //
 //Route::get('/user', function () {
 //    return view('user');
