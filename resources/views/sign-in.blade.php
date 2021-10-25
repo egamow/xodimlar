@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="company_detail">
-                        <h4 class="logo"><img style="width: 30px" src="assets/images/logo-white.png" alt=""> APTS 1.0</h4>
+                        <h4 class="logo"><img style="width: 30px" src="/assets/images/logo-white.png" alt=""> APTS 1.0</h4>
                         <h3>Автоматлаштирилган кадрлар тайёрлаш тизими</h3>
                         <p>Тизим "Farg'onazot" АЖ талаби асосида ишлаб чиқилган </p>
                         <div class="footer">
@@ -63,7 +63,7 @@
 </div>
 
 <!-- Jquery Core Js -->
-<script src="assets/bundles/libscripts.bundle.js"></script>
-<script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="/assets/bundles/libscripts.bundle.js"></script>
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
 </body>
 </html>

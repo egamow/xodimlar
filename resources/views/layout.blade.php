@@ -7,13 +7,14 @@
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
     <title>APTS :: @yield('title')</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/plugins/morrisjs/morris.css" />
-    <link rel="stylesheet" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
+    <link href={{asset("assets/plugins/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+    <link rel="stylesheet" href={{asset("assets/plugins/morrisjs/morris.css")}} />
+    <link rel="stylesheet" href={{asset("assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css")}}/>
     <!-- Custom Css -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/color_skins.css">
-    {{--<link rel="stylesheet" href="assets/css/style.css">--}}
+    <link rel="stylesheet" href={{asset("assets/css/main.css")}}>
+    <link rel="stylesheet" href={{asset("assets/css/color_skins.css")}}>
+
+    {{--<link rel="stylesheet" href={{asset("assets/css/style.css">--}}
 
 </head>
 <body class="theme-black">

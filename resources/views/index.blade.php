@@ -1,7 +1,6 @@
 ﻿@extends('layout')
 @section('title')Бош саҳифа
     @endsection
-
 @section('main_content')
 <!-- Main Content -->
 <section class="content home">
