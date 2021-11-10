@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return Category::all();
     }
 
     /**
@@ -33,9 +34,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $categoryRequest)
     {
-        //
+        $data = $categoryRequest->validated();
+        return Category::create($data);
     }
 
     /**
@@ -44,9 +46,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category_id)
     {
-        //
+        return Category::find($category_id);
+
     }
 
     /**
@@ -67,9 +70,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($category_id, CategoryRequest $categoryRequest)
     {
-        //
+        $data = $categoryRequest->validated();
+        $category = Category::find($category_id);
+        $category->update($data);
+        return $category;
     }
 
     /**
@@ -78,8 +84,9 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category_id)
     {
-        //
+        Category::find($category_id)->delete();
+        return response()->noContent();
     }
 }
