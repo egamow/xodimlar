@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,24 +15,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('sign-in');
+
+Route::view('/','login');
+
+Route::name('user.')->group(function (){
+
+    Route::view('/main', 'main')->middleware('auth')->name('main');
+    Route::view('/profile', 'profile')->middleware('auth')->name('profile');
+
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+
+
+    Route::get('/login', function(){
+    if(Auth::check()){
+        return redirect(route('user.main'));
+    }
+    return view('login');
+    })->name('login');
+
+    Route::post('/login',[\App\Http\Controllers\LoginController::class,'login']);
+
+    Route::get('/logout', function() {
+        Auth::logout();
+        return redirect(route('user.login'));
+    })->name('logout');
+
+
+
+
+    Route::get('/register',function (){
+        if(Auth::check()){
+            return redirect(route('user.main'));
+    }
+    return view('register');
+    })->name('register');
+
+    Route::post('/register', [\App\Http\Controllers\RegisterController::class,'save']);
 });
 
 
-Route::get('/index', function () {
-    return view('index');
-});
 
-Route::get('/profile', function () {
-    return view('profile');
-});
-
-//
-//Route::get('/user', function () {
-//    return view('user');
-//});
-//
-// Route::get('/user/{id}/{name}', function ($id,$name) {
-//    return 'ID:'.$id.'. Name: '.$name;
-//});

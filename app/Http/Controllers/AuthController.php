@@ -8,28 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $user = new User();
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->tabel_number = $request['tabel_number'];
-        $user->password = bcrypt($request->password);
-        $user->save();
-    }
+//    public function register(Request $request)
+//    {
+//        $user = new User();
+//        $user->login = $request['login'];
+//        $user->password = bcrypt($request->password);
+//        $user->save();
+//    }
 
     public function login(Request $request)
     {
         $request->validate([
-            'tabel_number' => 'required',
+            'login' => 'required',
             'password' => 'required'
         ]);
 
-        $data = request(['tabel_number', 'password']);
+        $data = request(['login', 'password']);
         if (!Auth()->attempt($data)) {
-            return response('Tabel nomer yoki parol xato', 422);
+            return response('Логин ёки парол нотугри', 422);
         }
-        $user = User::where('tabel_number', $request->input('tabel_number'))->first();
+        $user = User::where('login', $request->input('login'))->first();
 
         $authToken = $user->createToken('auth-token')->plainTextToken;
 

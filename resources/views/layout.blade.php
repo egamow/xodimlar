@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>APTS :: @yield('title')</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +61,10 @@
             <li>
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="h-bars"></a>
-                    <a class="navbar-brand" href="index"><img src="assets/images/logo-black.svg" width="35" alt="APTS"><span class="m-l-10">APTS 1.0</span></a>
+                    <a class="navbar-brand" href="{{route('user.main')}}">
+                        <img src="assets/images/logo-black.svg" width="35" alt="APTS">
+                        <span class="m-l-10">APTS 1.0</span>
+                    </a>
                 </div>
             </li>
             <li class="search_bar">
@@ -183,7 +187,7 @@
                 <a href="javascript:void(0);" class="fullscreen" data-provide="fullscreen"><i class="zmdi zmdi-fullscreen"></i></a>
                 <a href="javascript:void(0);" class="btn_overlay"><i class="zmdi zmdi-sort-amount-desc"></i></a>
                 <a hidden href="javascript:void(0);" class="js-right-sidebar"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a>
-                <a href="/" class="mega-menu"><i class="zmdi zmdi-power"></i></a>
+                <a href="{{route('user.logout')}}" class="mega-menu"><i class="zmdi zmdi-power"></i></a>
             </li>
         </ul>
     </div>
@@ -193,7 +197,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="h-menu">
-                    <li class="open active"><a href="index"><i class="zmdi zmdi-home"></i></a></li>
+                    <li class="open active"><a href="{{route('user.main')}}"><i class="zmdi zmdi-home"></i></a></li>
 
                     <li><a href="javascript:void(0)">Бахолаш</a>
                         <ul class="sub-menu">
