@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PositionRequest;
 use App\Position;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        return Position::all();
     }
 
     /**
@@ -33,9 +34,10 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $positionRequest)
     {
-        //
+        $data = $positionRequest->validated();
+        return Position::create($data);
     }
 
     /**
@@ -44,9 +46,9 @@ class PositionController extends Controller
      * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function show(Position $position)
+    public function show($position_id)
     {
-        //
+        return Position::find($position_id);
     }
 
     /**
@@ -67,9 +69,12 @@ class PositionController extends Controller
      * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Position $position)
+    public function update($position_id, PositionRequest $positionRequest)
     {
-        //
+        $data = $positionRequest->validated();
+        $position = Position::find($position_id);
+        $position->update($data);
+        return $position;
     }
 
     /**
@@ -78,8 +83,9 @@ class PositionController extends Controller
      * @param  \App\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy($position_id)
     {
-        //
+        Position::find($position_id)->delete();
+        return response()->noContent();
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Department;
+use App\Http\Requests\DepartmentRequest;
+use App\Http\Requests\DepartmentUpdateRequest;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -14,7 +17,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return Department::all();
     }
 
     /**
@@ -33,9 +36,10 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $departmentRequest)
     {
-        //
+        $data = $departmentRequest->validated();
+        return Department::create($data);
     }
 
     /**
@@ -44,9 +48,9 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($department_id)
     {
-        //
+        return Department::find($department_id);
     }
 
     /**
@@ -67,9 +71,11 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $departmentRequest, Department $department)
     {
-        //
+        $data = $departmentRequest->validated();
+        $department->update($data);
+        return $department;
     }
 
     /**
@@ -80,6 +86,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        return response()->noContent();
     }
 }
