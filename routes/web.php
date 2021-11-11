@@ -25,7 +25,6 @@ Route::name('user.')->group(function (){
 
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 
-
     Route::get('/login', function(){
     if(Auth::check()){
         return redirect(route('user.main'));
@@ -40,9 +39,6 @@ Route::name('user.')->group(function (){
         return redirect(route('user.login'));
     })->name('logout');
 
-
-
-
     Route::get('/register',function (){
         if(Auth::check()){
             return redirect(route('user.main'));
@@ -51,6 +47,7 @@ Route::name('user.')->group(function (){
     })->name('register');
 
     Route::post('/register', [\App\Http\Controllers\RegisterController::class,'save']);
+
 });
 
 
