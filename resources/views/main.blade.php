@@ -397,6 +397,8 @@
         </div>
     </div>
 </section>
+
+
 <!-- Jquery Core Js -->
 <script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
 <script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
@@ -412,5 +414,5 @@
 
 <script src="assets/js/pages/calendar/calendar.js"></script>
 <script src="assets/js/pages/profile.js"></script>
-
 @endsection
+

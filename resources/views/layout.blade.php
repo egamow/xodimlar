@@ -9,8 +9,10 @@
     <title>APTS :: @yield('title')</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/plugins/nestable/jquery-nestable.css"/>
     <link rel="stylesheet" href="assets/plugins/morrisjs/morris.css" />
     <link rel="stylesheet" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
+
     <!-- Custom Css -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/color_skins.css">
@@ -199,6 +201,16 @@
                 <ul class="h-menu">
                     <li class="open active"><a href="{{route('user.main')}}"><i class="zmdi zmdi-home"></i></a></li>
 
+                    <li><a href="javascript:void(0)">Корхона</a>
+                        <ul class="sub-menu ">
+                            <li>
+                                <ul class="sub-menu-two">
+                                    <li><a href="{{route('user.structure')}}">Ташкилий структура</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li><a href="javascript:void(0)">Бахолаш</a>
                         <ul class="sub-menu">
                             <li><a href="#">Ижро интизоми бўйича</a></li>
@@ -206,7 +218,6 @@
                             <li><a href="#">Техника хавфсизлиги бўйича</a></li>
                         </ul>
                     </li>
-
                     <li><a href="javascript:void(0)">Ҳисоботлар</a>
                         <ul class="sub-menu">
                             <li><a href="normal-tables.html">Ходимлар рейтинги</a></li>
@@ -228,17 +239,14 @@
                             <li><a href="#">Тестлар билан ишлаш</a></li>
                             <li><a href="#">Тест графиклари</a></li>
                             <li><a href="#">Тест натижалари</a></li>
-
                         </ul>
                     </li>
-
                     <li><a href="javascript:void(0)">Ходимлар</a>
                         <ul class="sub-menu">
                             <li><a href="#">Ходимлар базаси</a></li>
 
                         </ul>
                     </li>
-
                     <li><a href="javascript:void(0)">Луғатлар</a>
                         <ul class="sub-menu ">
                             <li>
@@ -252,8 +260,6 @@
                             </li>
                         </ul>
                     </li>
-
-
                     <li><a href="javascript:void(0)">Администратор панели</a>
                         <ul class="sub-menu">
                             <li><a href="#">Фойдаланувчилар</a></li>
@@ -444,7 +450,6 @@
 </aside>
 
 @yield('main_content')
-
 
 </body>
 </html>

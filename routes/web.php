@@ -39,11 +39,16 @@ Route::name('user.')->group(function () {
 
     Route::post('/login', [LoginController::class, 'login']);
 
-
     Route::view('/main', 'main')->middleware('auth')->name('main');
+
     Route::view('/profile', 'profile')->middleware('auth')->name('profile');
 
+    Route::view('/structure', 'structure')->middleware('auth')->name('structure');
+
+    Route::resource('structure', 'StructureController');
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
 
     Route::get('/logout', function () {
         Auth::logout();

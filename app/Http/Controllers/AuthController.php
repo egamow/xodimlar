@@ -8,13 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-//    public function register(Request $request)
-//    {
-//        $user = new User();
-//        $user->login = $request['login'];
-//        $user->password = bcrypt($request->password);
-//        $user->save();
-//    }
+
 
     public function login(Request $request)
     {
