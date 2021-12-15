@@ -41,7 +41,6 @@ class AdminController extends Controller
         $login=User::find($user_id)->login;
         $new_password= $login.'-'.$login;
         User::find($user_id)->update(['password'=>$new_password]);
-
         return redirect()->route('admin.index')
             ->with('success','Парол бекор килинди');
     }
