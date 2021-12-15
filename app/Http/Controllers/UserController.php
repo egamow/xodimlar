@@ -7,13 +7,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        return User::all();
-    }
 
     public function checkLogin()
     {
         return response('check login test',200);
     }
+
+
 }

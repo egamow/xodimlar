@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StructureController extends Controller
 {
     public function index(){
-        return view('structure');
+        view('structure', ['user'=>Auth::user()]);
+
     }
 }

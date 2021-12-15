@@ -4,27 +4,26 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <meta name="description" content="Автоматлаштирилган кадрлар тайёрлаш тизими">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>APTS :: @yield('title')</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/plugins/nestable/jquery-nestable.css"/>
-    <link rel="stylesheet" href="assets/plugins/morrisjs/morris.css" />
-    <link rel="stylesheet" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
-
+    <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/nestable/jquery-nestable.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.css')}}" >
     <!-- Custom Css -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/color_skins.css">
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
-    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body class="theme-black">
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img src="assets/images/logo.svg" width="48" height="48" alt="APTS"></div>
+        <div class="m-t-30"><img src="{{asset('assets/images/logo.svg')}}" width="48" height="48" alt="APTS"></div>
         <p>Илтимос кутинг...</p>
     </div>
 </div>
@@ -45,13 +44,6 @@
         </div>
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12">
-                <div hidden class="social">
-                    <a class="icon" href="https://www.facebook.com/thememakkerteam" target="_blank"><i class="zmdi zmdi-facebook"></i></a>
-                    <a class="icon" href="https://www.behance.net/thememakker" target="_blank"><i class="zmdi zmdi-behance"></i></a>
-                    <a class="icon" href="#"><i class="zmdi zmdi-twitter"></i></a>
-                    <a class="icon" href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    <p>oded by WrapTheme<br> Designed by <a href="http://thememakker.com/" target="_blank">thememakker.com</a></p>
-                </div>
             </div>
         </div>
     </div>
@@ -64,7 +56,7 @@
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="h-bars"></a>
                     <a class="navbar-brand" href="{{route('user.main')}}">
-                        <img src="assets/images/logo-black.svg" width="35" alt="APTS">
+                        <img src="{{URL::asset('assets/images/logo-black.svg')}}" width="35" alt="APTS">
                         <span class="m-l-10">APTS 1.0</span>
                     </a>
                 </div>
@@ -81,13 +73,13 @@
                     <li><a href="events.html"><i class="zmdi zmdi-calendar-note m-r-10"></i><span>Календар</span></a></li>
                 </ul>
             </li>
-            <li  class="dropdown notifications badgebit"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+            <li hidden class="dropdown notifications badgebit"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
                     <div class="notify">
                         <span class="heartbit"></span>
                         <span class="point"></span>
                     </div>
                 </a>
-                <ul  class="dropdown-menu pullDown">
+                <ul class="dropdown-menu pullDown">
                     <li class="header">Янги хабарлар</li>
                     <li class="body">
                         <ul class="menu list-unstyled">
@@ -200,7 +192,6 @@
             <div class="col-md-12">
                 <ul class="h-menu">
                     <li class="open active"><a href="{{route('user.main')}}"><i class="zmdi zmdi-home"></i></a></li>
-
                     <li><a href="javascript:void(0)">Корхона</a>
                         <ul class="sub-menu ">
                             <li>
@@ -210,7 +201,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li><a href="javascript:void(0)">Бахолаш</a>
                         <ul class="sub-menu">
                             <li><a href="#">Ижро интизоми бўйича</a></li>
@@ -220,7 +210,7 @@
                     </li>
                     <li><a href="javascript:void(0)">Ҳисоботлар</a>
                         <ul class="sub-menu">
-                            <li><a href="normal-tables.html">Ходимлар рейтинги</a></li>
+                            <li><a href="#">Ходимлар рейтинги</a></li>
                             <li hidden><a href="#">Jquery Datatables</a></li>
                             <li hidden><a href="#">Editable Tables</a></li>
 
@@ -243,7 +233,7 @@
                     </li>
                     <li><a href="javascript:void(0)">Ходимлар</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Ходимлар базаси</a></li>
+                            <li><a href="{{route('employees.index')}}">Ходимлар руйхати</a></li>
 
                         </ul>
                     </li>
@@ -262,20 +252,21 @@
                     </li>
                     <li><a href="javascript:void(0)">Администратор панели</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Фойдаланувчилар</a></li>
+                            <li><a href="{{route('admin.index')}}">Фойдаланувчилар</a></li>
                             <li><a href="#">Роллар</a></li>
 
                         </ul>
                     </li>
-                    <li><a href="profile">Профил</a>
-                    </li>
+                    <li><a href="{{route('profile.edit', auth()->user()->id)}}">Профил</a>
 
+                    </li>
 
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
 <aside hidden class="right_menu">
     <div id="rightsidebar" class="right-sidebar">
         <ul class="nav nav-tabs">
@@ -448,8 +439,6 @@
         </div>
     </div>
 </aside>
-
-@yield('main_content')
-
+   @yield('main_content')
 </body>
 </html>

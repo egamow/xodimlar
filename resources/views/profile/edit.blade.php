@@ -1,6 +1,5 @@
 @extends('layout')
-@section('title')Профил
-@endsection
+@section('title')Профил@endsection
 @section('main_content')
     <!-- Main Content -->
     <section class="content profile-page">
@@ -12,7 +11,7 @@
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">
-                            <li class="breadcrumb-item"><a href="index"><i class="zmdi zmdi-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
                             <li class="breadcrumb-item active">Профил</li>
                         </ul>
                     </div>
@@ -24,10 +23,10 @@
                         <div class="body bg-dark profile-header">
                             <div class="row">
                                 <div class="col-lg-10 col-md-12">
-                                    <img src="assets/images/profile_av.jpg" class="user_pic rounded img-raised" alt="User">
+                                    <img width="180px" src="{{asset('assets/images/avatar.jpg')}}" class="user_pic rounded img-raised" alt="User">
                                     <div class="detail">
                                         <div class="u_name">
-                                            <h4><strong>Эшмат</strong> Тошматов</h4>
+                                            <h4><strong>{{$user->firstname}} </strong>{{$user->lastname}}</h4>
                                             <span>Тизим администратор</span>
                                         </div>
                                         <div id="m_area_chart"></div>
@@ -62,45 +61,41 @@
                                         <div class="row clearfix">
                                             <div class="col-lg-3 col-md-12">
                                                 <div class="form-group">
-                                                    <input readonly type="text" class="form-control" placeholder="Исмингиз" title="Исмингиз">
+                                                    <input readonly type="text" class="form-control" value="{{$user->firstname}}" title="Исмингиз">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group">
+                                                    <input readonly  type="text" class="form-control" value="{{$user->middlename}}" title="Отангизнинг исми">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-3 col-md-12">
                                                 <div class="form-group">
-                                                    <input readonly type="text" class="form-control" placeholder="Фамилиянгиз" title="Фамилиянгиз">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-12">
-                                                <div class="form-group">
-                                                    <input readonly  type="text" class="form-control" placeholder="Отангизнинг исми" title="Отангизнинг исми">
+                                                    <input readonly type="text" class="form-control" value="{{$user->lastname}}" title="Фамилиянгиз">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-3 col-md-12">
                                                 <div class="form-group">
-                                                    <input readonly type="text" class="form-control" placeholder="Телефон рақамингиз"
-                                                           title="Телефон рақамингиз">
+                                                    <input readonly type="text" class="form-control" value="{{$user->phone}}" title="Телефон рақамингиз">
                                                 </div>
                                             </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea readonly rows="4" class="form-control no-resize btn-round" placeholder="Манзил" title="Манзил"></textarea>
+                                                    <textarea readonly rows="2" class="form-control no-resize btn-round" title="Манзил">{{$user->region_id}}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input readonly type="text" class="form-control" placeholder="Бўлим ёки бўлинма"
-                                                           title="Бўлим ёки бўлинма">
+                                                    <input readonly type="text" class="form-control" value="{{$user->department_id}}" title="Бўлим ёки бўлинма">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input readonly type="text" class="form-control" placeholder="Лавозим"
-                                                           title="Лавозим">
+                                                    <input readonly type="text" class="form-control" value="{{$user->position_id}}" title="Лавозим">
                                                 </div>
                                             </div>
 
@@ -108,34 +103,30 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div role="tabpanel" class="tab-pane" id="usersecurity">
-                                <form action="{{route('user.profile')}}" method="post">
+                                <form action="{{ route('profile.update', $user->id) }}" method="post">
                                     @csrf
+                                    @method('PUT')
                                 <div class="card">
-                                    <div class="header">
-                                        <h2><strong>Хавфсизлик</strong></h2>
-                                    </div>
-                                    <div class="body">
-
-                                        <div class="form-group">
-                                           <h3>{{$login->created_at}}</h3>
+                                        <div class="header">
+                                            <h2><strong>Хавфсизлик</strong></h2>
                                         </div>
-
-                                        <div class="form-group">
-                                            <input type="text" readonly class="form-control" placeholder="Логин" title="Логин">
+                                        <div class="body">
+                                            <div class="form-group">
+                                                <input type="text" readonly class="form-control" value="{{$user->login}}" placeholder="Логин" title="Логин">
+                                            </div>
+                                            <div class="form-group">
+                                                <input name="new_password" type="password" class="form-control"  placeholder="Янги парол" title="Янги парол">
+                                            </div>
+                                            <div class="form-group">
+                                                <input name="new_confirm_password" type="password" class="form-control"  placeholder="Янги паролни кайта киритинг" title="Кайта парол">
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-round">Ўзгартиришларни сақлаш</button>
                                         </div>
-                                        <div class="form-group">
-                                            <input name="password" type="password" class="form-control" placeholder="Янги парол" title="Янги парол">
-                                        </div>
-                                        <button type="submit" class="btn btn-info btn-round">Ўзгартиришларни сақлаш</button>
-                                    </div>
                                 </div>
                                 </form>
                             </div>
-
 
                         <div hidden role="tabpanel" class="tab-pane page-calendar" id="schedule">
                             <div class="row">
@@ -214,7 +205,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -253,15 +243,15 @@
     </div>
 
     <!-- Jquery Core Js -->
-    <script src="assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-    <script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+    <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js -->
+    <script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js -->
 
-    <script src="assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob Plugin Js -->
-    <script src="assets/bundles/morrisscripts.bundle.js"></script> <!-- Morris Plugin Js -->
-    <script src="assets/bundles/fullcalendarscripts.bundle.js"></script><!--/ calender javascripts -->
+    <script src="{{asset('assets/bundles/knob.bundle.js')}}"></script> <!-- Jquery Knob Plugin Js -->
+    <script src="{{asset('assets/bundles/morrisscripts.bundle.js')}}"></script> <!-- Morris Plugin Js -->
+    <script src="{{asset('assets/bundles/fullcalendarscripts.bundle.js')}}"></script><!--/ calender javascripts -->
 
-    <script src="assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
-    <script src="assets/js/pages/calendar/calendar.js"></script>
-    <script src="assets/js/pages/profile.js"></script>
+    <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js -->
+    <script src="{{asset('assets/js/pages/calendar/calendar.js')}}"></script>
+    <script src="{{asset('assets/js/pages/profile.js')}}"></script>
 
 @endsection

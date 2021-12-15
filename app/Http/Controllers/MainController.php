@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class MainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-        return Category::all();
+        $user = Auth::user();
+        return view('main', ['user'=>$user]);
 
     }
 
@@ -36,31 +36,29 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $categoryRequest)
+    public function store(Request $request)
     {
-        $data = $categoryRequest->validated();
-        return Category::create($data);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($category_id)
+    public function show($id)
     {
-        return Category::find($category_id);
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
     }
@@ -69,26 +67,22 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($category_id, CategoryRequest $categoryRequest)
+    public function update(Request $request, $id)
     {
-        $data = $categoryRequest->validated();
-        $category = Category::find($category_id);
-        $category->update($data);
-        return $category;
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($category_id)
+    public function destroy($id)
     {
-        Category::find($category_id)->delete();
-        return response()->noContent();
+        //
     }
 }
