@@ -68,6 +68,7 @@ Route::name('user.')->group(function () {
 //    * 3 ta controller uchun pastda shunday umumiy korinishda yozib qoydim
 //    * Izohlarni o'chirib yuborishingiz mumkin
 
+Route::get("admin/role_update/{id}", 'AdminController@role_update')->middleware('auth')->name('admin.role_update');
 Route::get("admin/reset/{id}", 'AdminController@reset')->middleware('auth')->name('admin.reset');
 Route::resource("admin", 'AdminController')->middleware('auth');
 Route::resource("employees", 'EmployeeController')->middleware('auth');

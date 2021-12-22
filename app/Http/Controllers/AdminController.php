@@ -45,4 +45,27 @@ class AdminController extends Controller
             ->with('success','Парол бекор килинди');
     }
 
+    public function role_update(Request $request, $user_id)
+    {
+       dd($request->get('curator'));
+
+        $admin=$request->get('admin');
+        $trainer=$request->get('trainer');
+        $inspector=$request->get('inspector');
+        $personnel_officer=$request->get('personnel_officer');
+        $curator=$request->get('curator');
+
+
+        User::find($user_id)->update(
+            ['admin'=>$admin,
+            'trainer'=>$trainer,
+            'inspector'=>$inspector,
+            'personnel_officer'=>$personnel_officer,
+            'curator'=>$curator]
+            );
+        return redirect()->route('admin.index')
+            ->with('success','Рол узгартирилди');
+    }
+
+
 }

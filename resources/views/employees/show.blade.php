@@ -29,10 +29,12 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card">
-                    <div class="body">
+                  <div class="body">
+
+
                    <div class="row">
+                       <div class="col-10">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Табел рақами:</strong>
@@ -57,10 +59,19 @@
                             {{ $employee->phone}}
                         </div>
                     </div>
+                       </div>
+                       <div class="col-2">
+                           <img src="{{asset('assets/images/avatar.jpg')}}" class="user_pic rounded img-raised" alt="">
+                       </div>
+
 
                 </div>
+
+
                </div>
                </div>
+
+
             </div>
 
         </div>

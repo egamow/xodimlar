@@ -40,29 +40,48 @@
                         <th scope="col">Логин</th>
                         <th scope="col">Фамилияси, исми ва отасининг исми</th>
                         <th scope="col">Телефон рақами</th>
-                        <th hidden scope="col">Бўлим ва лавозими</th>
-                        <th scope="col"></th>
+                        <th scope="col">Амаллар</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($users as $index=>$user )
-                        <tr>
-                            <th scope="row">{{ $index+1 }}</th>
-                            <td>{{ $user->login }}</td>
-                            <td>{{ $user->lastname }} {{ $user->firstname }} {{ $user->middlename}}</td>
-                            <td>{{ $user->phone }}</td>
-                            <td hidden>{{ $user->department_id }} {{ $user->position_id }}</td>
-                            <td>
-                               <a class="btn btn-sm btn-info" href="{{ route('admin.show',$user->id) }}">Кўриш</a>
-                               {{--<form action="{{ route('admin.reset', $user->id) }}" method="GET">--}}
-                                    {{--@csrf--}}
-                                    {{--@method('GET')--}}
-                                <a class="btn btn-sm btn-danger" href="{{ route('admin.reset',$user->id) }}">Паролни бекор килиш</a>
+                        <tr class="bg-light">
+                            <th class="align-top" scope="row">{{ $index+1 }}</th>
+                            <td class="align-top">{{ $user->login }}</td>
+                            <td class="align-top">{{ $user->lastname }} {{ $user->firstname }} {{ $user->middlename}}</td>
+                            <td class="align-top align-content-center">{{ $user->phone }}</td>
+                            <td class="align-top">
+                                <a class="btn btn-sm btn-info waves-effect collapsed margin-0" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-settings"></i></a>
+                                <a class="btn btn-sm btn-danger margin-0" href="{{ route('admin.reset',$user->id) }}">Паролни бекор килиш</a>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card-title">Ходимнинг тизимдаги роллари:</div>
+                                            <form action="{{route('admin.role_update', $user->id)}}" method="GET">
+                                                @csrf
+                                                @method('GET')
+                                                <div class="checkbox">
+                                                    <input id="admin" name="admin" type="checkbox" value="@if($user->admin==True) on @else off @endif">
+                                                    <label for="admin">Администратор</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <input id="trainer" name="trainer" type="checkbox" value="@if($user->trainer==True) on @else off @endif">
+                                                    <label for="trainer">Тренер</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <input id="inspector" name="inspector" type="checkbox" value="@if($user->inspector==True) on @else off @endif">
+                                                    <label for="inspector">Текширувчи</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <input id="personnel_officer" name="personnel_officer" type="checkbox" value="@if($user->personnel_officer==True) on @else off @endif" >
+                                                    <label for="personnel_officer">Кадр инспектори</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <input id="curator" name="curator" type="checkbox" value="@if($user->curator==True) on @else off @endif" >
+                                                    <label for="curator">Куратор</label>
+                                                </div>
+                                                <button class="btn btn-info btn-sm btn-round waves-effect" type="submit">Саклаш</button>
+                                            </form>
 
-                                    {{--<button type="submit" class="btn btn-sm btn-danger">Паролни бекор килиш</button>--}}
-                                {{--</form>--}}
-
-
+                                </div>
                             </td>
                         </tr>
                     @endforeach
