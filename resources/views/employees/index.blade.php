@@ -36,7 +36,6 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Табел рақами</th>
                         <th scope="col">Фамилияси, исми ва отасининг исми</th>
                         <th scope="col">Туғилган санаси</th>
@@ -48,7 +47,6 @@
                     <tbody>
                     @foreach ($employees as $index=>$employee )
                         <tr>
-                            <th scope="row">{{ $index+1 }}</th>
                             <td>{{ $employee->login }}</td>
                             <td>{{ $employee->lastname }} {{ $employee->firstname }} {{ $employee->middlename}}</td>
                             <td>{{ $employee->birthdate }}</td>

@@ -47,22 +47,34 @@ class AdminController extends Controller
 
     public function role_update(Request $request, $user_id)
     {
-       dd($request->get('curator'));
-
-        $admin=$request->get('admin');
-        $trainer=$request->get('trainer');
-        $inspector=$request->get('inspector');
-        $personnel_officer=$request->get('personnel_officer');
-        $curator=$request->get('curator');
 
 
-        User::find($user_id)->update(
+        $admin=false;
+        $trainer=false;
+        $inspector=false;
+        $personnel_officer=false;
+        $curator=false;
+
+        if (!empty($request->admin))
+            $admin=true;
+        if (!empty($request->trainer))
+            $trainer=true;
+        if (!empty($request->inspector))
+            $inspector=true;
+        if (!empty($request->personnel_officer))
+            $personnel_officer=true;
+        if (!empty($request->curator))
+            $curator=true;
+
+
+        User::where('id',$user_id)->update(
             ['admin'=>$admin,
             'trainer'=>$trainer,
             'inspector'=>$inspector,
             'personnel_officer'=>$personnel_officer,
             'curator'=>$curator]
             );
+
         return redirect()->route('admin.index')
             ->with('success','Рол узгартирилди');
     }

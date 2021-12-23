@@ -46,27 +46,10 @@ Route::name('user.')->group(function () {
     })->name('register');
 
     Route::post('/register', [RegisterController::class, 'save']);
-
     Route::get('/main', [MainController::class, 'index'])->middleware('auth')->name('main');
-
-//    Route::get('/profile/{id}', [ProfileController::class, 'show'])->middleware('auth')->name('profile');
-//    Route::post('/profile/{id}', [ProfileController::class, 'index']);
-
     Route::get('/structure', [StructureController::class, 'index'])->middleware('auth')->name('structure');
 
 });
-
-
-//    Pastdagi 3 ta apiResource lar uchun umumiy izoh:
-//    Route::get('category', 'CategoryController@index');
-//    Route::post('category', 'CategoryController@store');
-//    Route::get('category/{id}', 'CategoryController@show');
-//    Route::put('category/{id}', 'CategoryController@update');
-//    Route::delete('category/{id}', 'CategoryController@destroy');
-//    * Shu tepadagi 5 ta route uchun pastdagi bitta apiResource bilan yozish mumkin
-//    Route::apiResource('category', 'CategoryController');
-//    * 3 ta controller uchun pastda shunday umumiy korinishda yozib qoydim
-//    * Izohlarni o'chirib yuborishingiz mumkin
 
 Route::get("admin/role_update/{id}", 'AdminController@role_update')->middleware('auth')->name('admin.role_update');
 Route::get("admin/reset/{id}", 'AdminController@reset')->middleware('auth')->name('admin.reset');
@@ -74,9 +57,9 @@ Route::resource("admin", 'AdminController')->middleware('auth');
 Route::resource("employees", 'EmployeeController')->middleware('auth');
 Route::resource("profile", 'ProfileController')->middleware('auth');
 
-Route::apiResource('category', 'CategoryController');
-Route::apiResource('department', 'DepartmentController');
-Route::apiResource('position', 'PositionController');
+//Route::apiResource('category', 'CategoryController');
+//Route::apiResource('department', 'DepartmentController');
+//Route::apiResource('position', 'PositionController');
 
 
 

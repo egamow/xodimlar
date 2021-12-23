@@ -36,7 +36,6 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Логин</th>
                         <th scope="col">Фамилияси, исми ва отасининг исми</th>
                         <th scope="col">Телефон рақами</th>
@@ -46,47 +45,46 @@
                     <tbody>
                     @foreach ($users as $index=>$user )
                         <tr class="bg-light">
-                            <th class="align-top" scope="row">{{ $index+1 }}</th>
                             <td class="align-top">{{ $user->login }}</td>
                             <td class="align-top">{{ $user->lastname }} {{ $user->firstname }} {{ $user->middlename}}</td>
                             <td class="align-top align-content-center">{{ $user->phone }}</td>
                             <td class="align-top">
-                                <a class="btn btn-sm btn-info waves-effect collapsed margin-0" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-settings"></i></a>
+                                <a class="btn btn-sm btn-info waves-effect collapsed margin-0" role="button" data-toggle="collapse" href="#collapseExample{{$user->id}}" aria-expanded="false" aria-controls="collapseExample"><i class="zmdi zmdi-settings"></i></a>
                                 <a class="btn btn-sm btn-danger margin-0" href="{{ route('admin.reset',$user->id) }}">Паролни бекор килиш</a>
-                                <div class="collapse" id="collapseExample">
+                                <div class="collapse" id="collapseExample{{$user->id}}">
                                     <div class="card-title">Ходимнинг тизимдаги роллари:</div>
                                             <form action="{{route('admin.role_update', $user->id)}}" method="GET">
                                                 @csrf
                                                 @method('GET')
                                                 <div class="checkbox">
-                                                    <input id="admin" name="admin" type="checkbox" value="@if($user->admin==True) on @else off @endif">
-                                                    <label for="admin">Администратор</label>
+                                                    <input id="admin{{$user->id}}" name="admin" type="checkbox" @if($user->admin==True) checked @endif>
+                                                    <label for="admin{{$user->id}}">Администратор</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <input id="trainer" name="trainer" type="checkbox" value="@if($user->trainer==True) on @else off @endif">
-                                                    <label for="trainer">Тренер</label>
+                                                    <input id="trainer{{$user->id}}" name="trainer" type="checkbox" @if($user->trainer==True) checked @endif>
+                                                    <label for="trainer{{$user->id}}">Тренер</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <input id="inspector" name="inspector" type="checkbox" value="@if($user->inspector==True) on @else off @endif">
-                                                    <label for="inspector">Текширувчи</label>
+                                                    <input id="inspector{{$user->id}}" name="inspector" type="checkbox" @if($user->inspector==True) checked @endif>
+                                                    <label for="inspector{{$user->id}}">Текширувчи</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <input id="personnel_officer" name="personnel_officer" type="checkbox" value="@if($user->personnel_officer==True) on @else off @endif" >
-                                                    <label for="personnel_officer">Кадр инспектори</label>
+                                                    <input id="personnel_officer{{$user->id}}" name="personnel_officer" type="checkbox" @if($user->personnel_officer==True) checked @endif>
+                                                    <label for="personnel_officer{{$user->id}}">Кадр инспектори</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <input id="curator" name="curator" type="checkbox" value="@if($user->curator==True) on @else off @endif" >
-                                                    <label for="curator">Куратор</label>
+                                                    <input id="curator{{$user->id}}" name="curator" type="checkbox" @if($user->curator==True) checked @endif >
+                                                    <label for="curator{{$user->id}}">Куратор</label>
                                                 </div>
                                                 <button class="btn btn-info btn-sm btn-round waves-effect" type="submit">Саклаш</button>
                                             </form>
-
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+
                 {{ $users->links() }}
 
             </div>

@@ -250,15 +250,17 @@
                             </li>
                         </ul>
                     </li>
+                    @if (auth()->user()->admin==true)
                     <li><a href="javascript:void(0)">Администратор панели</a>
                         <ul class="sub-menu">
                             <li><a href="{{route('admin.index')}}">Фойдаланувчилар</a></li>
                             <li><a href="#">Роллар</a></li>
-
                         </ul>
                     </li>
-                    <li><a href="{{route('profile.edit', auth()->user()->id)}}">Профил</a>
+                    @endif
 
+
+                    <li><a href="{{route('profile.edit', auth()->user()->id)}}">Профил</a>
                     </li>
 
                 </ul>
