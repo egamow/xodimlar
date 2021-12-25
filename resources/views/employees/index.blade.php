@@ -47,7 +47,7 @@
                     <tbody>
                     @foreach ($employees as $index=>$employee )
                         <tr>
-                            <td>{{ $employee->login }}</td>
+                            <td class="text-center">{{ $employee->login }}</td>
                             <td>{{ $employee->lastname }} {{ $employee->firstname }} {{ $employee->middlename}}</td>
                             <td>{{ $employee->birthdate }}</td>
                             <td>{{ $employee->phone }}</td>
@@ -58,6 +58,9 @@
                                     <a class="btn btn-sm btn-primary" href="{{ route('employees.edit',$employee->id) }}">Таҳрирлаш</a>
                                     @csrf
                                     @method('DELETE')
+
+                                    <button type="button" data-color="pink" data-toggle="modal" data-target="#colorModal" class="btn bg-pink waves-effect">PINK</button>
+
                                     <button type="submit" class="btn btn-sm btn-danger">Ўчириш</button>
                                 </form>
                             </td>
@@ -71,7 +74,25 @@
 
         </div>
     </section>
-
+    <!-- For Material Design Colors -->
+    <div class="modal fade" id="colorModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-pink">
+                <div class="modal-header">
+                    <h4 class="title" id="defaultModalLabel">Color Modal title</h4>
+                </div>
+                <div class="modal-body"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                    vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                    Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                    nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                    Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc. </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-round">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-primary btn-round" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Jquery Core Js -->
     <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
@@ -79,6 +100,8 @@
     <script src="{{asset('assets/plugins/nestable/jquery.nestable.js')}}"></script> <!-- Jquery Nestable -->
     <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui/sortable-nestable.js')}}"></script>
+
+
 
 
 @endsection
