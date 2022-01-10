@@ -53,55 +53,69 @@
                             <td>{{ $employee->phone }}</td>
                             <td hidden>{{ $employee->department_id }} {{ $employee->position_id }}</td>
                             <td>
-                                <form action="{{ route('employees.destroy',$employee->id) }}" method="POST">
+                                {{--<form action="{{ route('employees.destroy',$employee->id) }}" method="POST">--}}
                                     <a class="btn btn-sm btn-info" href="{{ route('employees.show',$employee->id) }}">Кўриш</a>
                                     <a class="btn btn-sm btn-primary" href="{{ route('employees.edit',$employee->id) }}">Таҳрирлаш</a>
-                                    @csrf
-                                    @method('DELETE')
+                                    {{--@csrf--}}
+                                    {{--@method('DELETE')--}}
+                                    <button class="btn btn-sm btn-danger"
+                                            data-modal-id="myModal" data-user_id="{{$employee->id}}"
+                                            data-toggle="modal" data-target="#myModal">Delete</button>
+                                    {{--<button type="button" data-user_id="{{$employee->id}}" data-color="pink" data-toggle="modal" data-target="#colorModal" class="btn bg-pink waves-effect">PINK</button>--}}
 
-                                    <button type="button" data-color="pink" data-toggle="modal" data-target="#colorModal" class="btn bg-pink waves-effect">PINK</button>
-
-                                    <button type="submit" class="btn btn-sm btn-danger">Ўчириш</button>
-                                </form>
+                                    {{--<button type="submit" class="btn btn-sm btn-danger">Ўчириш</button>--}}
+                                {{--</form>--}}
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
                 {{ $employees->links() }}
-
             </div>
 
         </div>
     </section>
     <!-- For Material Design Colors -->
-    <div class="modal fade" id="colorModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content bg-pink">
+            <div class="modal-content bg-danger">
                 <div class="modal-header">
                     <h4 class="title" id="defaultModalLabel">Color Modal title</h4>
                 </div>
                 <div class="modal-body"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
-                    vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
-                    Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
-                    nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
-                    Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc. </div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-round">SAVE CHANGES</button>
+                    <form action="{{ route('employees.destroy',$employee->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                    <button type="submit" class="btn btn-primary btn-round">Ўчириш</button>
+                    </form>
+                    {{--<button type="button" class="btn btn-primary btn-round">SAVE CHANGES</button>--}}
                     <button type="button" class="btn btn-primary btn-round" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Jquery Core Js -->
+      <!-- Jquery Core Js -->
+
     <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
     <script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- slimscroll, waves Scripts Plugin Js -->
     <script src="{{asset('assets/plugins/nestable/jquery.nestable.js')}}"></script> <!-- Jquery Nestable -->
     <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui/sortable-nestable.js')}}"></script>
+    <script src="http://foundation.zurb.com/sites/docs/assets/js/foundation.js?hash=b679e2177e3de7e04f4c100d03af1ad3"></script>
+    <script >
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('user_id') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
 
-
-
+    </script>
 
 @endsection
