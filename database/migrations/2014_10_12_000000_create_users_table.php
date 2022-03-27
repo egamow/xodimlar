@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('login')->unique();
             $table->string('password');
@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('middlename')->nullable();
             $table->date('birthdate');
             $table->string('phone')->unique();
-            $table->integer('region_id');
-            $table->boolean('is_staff');
+            $table->integer('region_id')->nullable();
+            $table->boolean('is_staff')->default(0);
             $table->integer('department_id')->nullable();
             $table->integer('position_id')->nullable();
             $table->string('photo_url')->nullable();

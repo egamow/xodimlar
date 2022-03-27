@@ -57,6 +57,14 @@ Route::resource("admin", 'AdminController')->middleware('auth');
 Route::resource("employees", 'EmployeeController')->middleware('auth');
 Route::resource("profile", 'ProfileController')->middleware('auth');
 
+Route::resource("ids", 'IdController')->middleware('auth');
+Route::resource("tds", 'TdController')->middleware('auth');
+Route::resource("tbs", 'TbController')->middleware('auth');
+
+Route::resource("id_violation", 'IdViolationController')->middleware('auth');
+Route::resource("tb_violation", 'TbViolationController')->middleware('auth');
+Route::resource("td_violation", 'TdViolationController')->middleware('auth');
+
 //Route::apiResource('category', 'CategoryController');
 //Route::apiResource('department', 'DepartmentController');
 //Route::apiResource('position', 'PositionController');

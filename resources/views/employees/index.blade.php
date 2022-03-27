@@ -85,7 +85,7 @@
                 <div class="modal-body"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('employees.destroy',$employee->id) }}" method="POST">
+                    <form action="{{ route('employees.destroy', 1) }}" method="POST">
                         @csrf
                         @method('DELETE')
                     <button type="submit" class="btn btn-primary btn-round">Ўчириш</button>

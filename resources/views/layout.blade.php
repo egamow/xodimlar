@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-select/css/bootstrap-select.css')}}">
 
 
 </head>
@@ -203,9 +204,9 @@
                     </li>
                     <li><a href="javascript:void(0)">Бахолаш</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Ижро интизоми бўйича</a></li>
-                            <li><a href="#">Меҳнат интизоми бўйича</a></li>
-                            <li><a href="#">Техника хавфсизлиги бўйича</a></li>
+                            <li><a href="{{route('id_violation.index')}}">Ижро интизоми бўйича</a></li>
+                            <li><a href="{{route('td_violation.index')}}">Меҳнат интизоми бўйича</a></li>
+                            <li><a href="{{route('tb_violation.index')}}">Техника хавфсизлиги бўйича</a></li>
                         </ul>
                     </li>
                     <li><a href="javascript:void(0)">Ҳисоботлар</a>
@@ -241,9 +242,9 @@
                         <ul class="sub-menu ">
                             <li>
                                 <ul class="sub-menu-two">
-                                    <li><a href="#">Техника хафсизлиги бўйича қоидабузарликлар</a></li>
-                                    <li><a href="#">Меҳнат интизоми бўйича қоидабузарликлар</a></li>
-                                    <li><a href="#">Ижро интизоми бўйича қоидабузарликлар</a></li>
+                                    <li><a href="{{route('tbs.index')}}">Техника хафсизлиги бўйича қоидабузарликлар</a></li>
+                                    <li><a href="{{route('tds.index')}}">Меҳнат интизоми бўйича қоидабузарликлар</a></li>
+                                    <li><a href="{{route('ids.index')}}">Ижро интизоми бўйича қоидабузарликлар</a></li>
                                     <li><a href="#">Лавозимлар рўйхати</a></li>
 
                                 </ul>
