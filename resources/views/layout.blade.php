@@ -193,15 +193,6 @@
             <div class="col-md-12">
                 <ul class="h-menu">
                     <li class="open active"><a href="{{route('user.main')}}"><i class="zmdi zmdi-home"></i></a></li>
-                    <li><a href="javascript:void(0)">Корхона</a>
-                        <ul class="sub-menu ">
-                            <li>
-                                <ul class="sub-menu-two">
-                                    <li><a href="{{route('user.structure')}}">Ташкилий структура</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
                     <li><a href="javascript:void(0)">Бахолаш</a>
                         <ul class="sub-menu">
                             <li><a href="{{route('id_violation.index')}}">Ижро интизоми бўйича</a></li>
@@ -245,6 +236,7 @@
                                     <li><a href="{{route('tbs.index')}}">Техника хафсизлиги бўйича қоидабузарликлар</a></li>
                                     <li><a href="{{route('tds.index')}}">Меҳнат интизоми бўйича қоидабузарликлар</a></li>
                                     <li><a href="{{route('ids.index')}}">Ижро интизоми бўйича қоидабузарликлар</a></li>
+                                    <li><a href="{{route('structure.index')}}">Ташкилий структура</a></li>
                                     <li><a href="#">Лавозимлар рўйхати</a></li>
 
                                 </ul>

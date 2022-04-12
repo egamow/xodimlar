@@ -12,8 +12,10 @@
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">
-                            <li class="breadcrumb-item"><a href="{{ route('user.main') }}"><i class="zmdi zmdi-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('id_violation.index') }}">Ижро интизоми бўйича бахолаш</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('user.main') }}"><i
+                                            class="zmdi zmdi-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('id_violation.index') }}">Ижро интизоми бўйича
+                                    бахолаш</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +43,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="id_id">Қоидабузарлик тури</label>
-                        <select class="form-control" name="id_id">
+                        <select class="form-control show-tick z-index" style="z-index: 111 !important;" name="id_id" data-live-search="true">
                             @foreach($ids as $id)
                                 <option value="{{$id->id}}">{{$id->name}}</option>
                             @endforeach
@@ -49,10 +51,12 @@
                     </div>
                     <div class="form-group">
                         <label for="user_id">Ходим</label>
-                        <select class="form-control" placeholder="Танланг" name="user_id">
-                            <option disabled selected> Танланг </option>
+                        <select class="form-control show-tick z-index" name="user_id" style="top: 20vh !important;"
+                                data-live-search="true">
+                            <option disabled selected> Танланг</option>
                             @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                    - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
                             @endforeach
                         </select>
                     </div>
@@ -66,6 +70,7 @@
 
         </div>
     </section>
+
 
 
     <!-- Jquery Core Js -->

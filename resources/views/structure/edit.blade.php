@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title')Қоидабузарлик қўшиш
+@section('title')Тахрирлаш
 @endsection
 @section('main_content')
     <!-- Main Content -->
@@ -8,12 +8,13 @@
             <div class="block-header">
                 <div class="row clearfix">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <h2><strong>Янги </strong>қўшиш</h2>
+                        <h2>Тахрирлаш</h2>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">
-                            <li class="breadcrumb-item"><a href="{{ route('user.main') }}"><i class="zmdi zmdi-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('tb_violation.index') }}">Техника хафсизлиги бўйича бахолаш</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('user.main') }}"><i
+                                            class="zmdi zmdi-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('structure.index') }}">ТТашкилий структура</a></li>
                         </ul>
                     </div>
                 </div>
@@ -22,7 +23,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-info" href="{{ route('tb_violation.index') }}"> Ортга кайтиш</a>
+                            <a class="btn btn-info" href="{{ route('structure.index') }}"> Ортга кайтиш</a>
                         </div>
                     </div>
                 </div>
@@ -37,30 +38,30 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('tb_violation.store') }}" method="POST">
+                <form action="{{ route('structure.update', $structure->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
-                        <label for="id_tb">Қоидабузарлик тури</label>
-                        <select class="form-control" name="id_tb" data-live-search="true">
-                            @foreach($tbs as $tb)
-                                <option value="{{$tb->id}}">{{$tb->name}}</option>
+                        <label for="pid">
+                            @if ($structure->type == 'd') Юқори бўлим @elseif($structure->type == 'p') Бўлим @endif
+                        </label>
+                        <select @if ($structure->type == 'p') required @endif class="form-control" name="pid">
+                            <option value="">No item</option>
+                            @foreach($departments as $department)
+                                <option @if ($department->id == $structure->pid) selected @endif value="{{$department->id}}"> {{$department->name ?? ''}} </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="user_id">Ходим</label>
-                        <select class="form-control" name="user_id" data-live-search="true">
-                            <option disabled selected> Танланг </option>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                            @endforeach
-                        </select>
+                        <label for="name"><label for="" class="text-danger">*</label> Номи</label>
+                        <input type="text" value="{{$structure->name}}" class="form-control" placeholder="Номи" name="name">
                     </div>
                     <div class="form-group">
                         <label for="description">Изох</label>
-                        <textarea type="text" class="form-control" placeholder="Изох" name="description"></textarea>
+                        <textarea type="text" class="form-control" placeholder="Изох"
+                                  name="description"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Саклаш</button>
+                    <button type="submit" class="btn btn-primary">Сақлаш</button>
                 </form>
             </div>
 
@@ -74,6 +75,7 @@
     <script src="{{asset('assets/plugins/nestable/jquery.nestable.js')}}"></script> <!-- Jquery Nestable -->
     <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui/sortable-nestable.js')}}"></script>
+
 
 @endsection
 

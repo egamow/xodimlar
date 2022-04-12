@@ -43,7 +43,7 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="id_td">Қоидабузарлик тури</label>
-                        <select class="form-control" name="id_td">
+                        <select class="form-control" name="id_td" data-live-search="true">
                             @foreach($tds as $td)
                                 <option @if($tdViolation->id_td == $td->id) selected
                                         @endif value="{{$td->id}}">{{$td->name}}</option>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label for="user_id">Ходим</label>
-                        <select class="form-control" name="user_id">
+                        <select class="form-control" name="user_id" data-live-search="true">
                             <option disabled selected> Танланг </option>
                             @foreach($users as $user)
                                 <option @if($tdViolation->user_id == $user->id) selected @endif

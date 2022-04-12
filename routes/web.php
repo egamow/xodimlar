@@ -51,6 +51,8 @@ Route::name('user.')->group(function () {
 
 });
 
+
+
 Route::get("admin/role_update/{id}", 'AdminController@role_update')->middleware('auth')->name('admin.role_update');
 Route::get("admin/reset/{id}", 'AdminController@reset')->middleware('auth')->name('admin.reset');
 Route::resource("admin", 'AdminController')->middleware('auth');
@@ -64,6 +66,8 @@ Route::resource("tbs", 'TbController')->middleware('auth');
 Route::resource("id_violation", 'IdViolationController')->middleware('auth');
 Route::resource("tb_violation", 'TbViolationController')->middleware('auth');
 Route::resource("td_violation", 'TdViolationController')->middleware('auth');
+
+Route::resource("structure", 'StructureController')->middleware('auth');
 
 //Route::apiResource('category', 'CategoryController');
 //Route::apiResource('department', 'DepartmentController');

@@ -41,7 +41,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="id_td">Қоидабузарлик тури</label>
-                        <select class="form-control" name="id_td">
+                        <select class="form-control" name="id_td" data-live-search="true">
                             @foreach($tds as $td)
                                 <option value="{{$td->id}}">{{$td->name}}</option>
                             @endforeach
@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group">
                         <label for="user_id">Ходим</label>
-                        <select class="form-control" placeholder="Танланг" name="user_id">
+                        <select class="form-control" placeholder="Танланг" name="user_id" data-live-search="true">
                             <option disabled selected> Танланг </option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>

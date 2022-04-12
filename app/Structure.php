@@ -1,23 +1,9 @@
 <?php
 namespace App;
 
-use Franzose\ClosureTable\Models\Entity;
+use Illuminate\Database\Eloquent\Model;
 
-class Structure extends Entity
+class Structure extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'structures';
-
-    /**
-     * ClosureTable model instance.
-     *
-     * @var \App\StructureClosure
-     */
-    protected $closure = 'App\StructureClosure';
-
-
+    protected $guarded = [];
 }
