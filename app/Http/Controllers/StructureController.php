@@ -69,7 +69,11 @@ class StructureController extends Controller
     public function destroy($id)
     {
         $data = Structure::where('id', $id)->first();
+        $positions = Structure::where('pid', $id)->get();
         if ($data) {
+            $positions->each(function ($item) {
+                $item->delete();
+            });
             $data->delete();
             return redirect()->route('structure.index')
                 ->with('success', 'Муваффақиятли ўчирилди');
