@@ -59,31 +59,34 @@
                             <button type="submit" class="btn btn-primary">Сақлаш</button>
                         </form>
                     </div>
-                    <div class="col-lg-6 col-md-12 margin-tb">
-                        <h5>Штат қўшиш</h5>
-                        <form action="{{ route('structure.store') }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="user_id"><label for="" class="text-danger">*</label> Бўлим</label>
-                                <select required class="form-control" name="pid">
-                                    <option></option>
-                                    @foreach($departments as $department)
-                                        <option value="{{$department->id}}"> {{$department->name ?? ''}} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><label for="" class="text-danger">*</label> Номи</label>
-                                <input type="text" class="form-control" placeholder="Номи" name="name">
-                                <input hidden name="type" value="p">
-                            <div class="form-group">
-                                <label for="description">Изох</label>
-                                <textarea type="text" class="form-control" placeholder="Изох"
-                                          name="description"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Сақлаш</button>
-                        </form>
-                    </div>
+                    @if (false)
+                        <div class="col-lg-6 col-md-12 margin-tb">
+                            <h5>Штат қўшиш</h5>
+                            <form action="{{ route('structure.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="user_id"><label for="" class="text-danger">*</label> Бўлим</label>
+                                    <select required class="form-control" name="pid">
+                                        <option></option>
+                                        @foreach($departments as $department)
+                                            <option value="{{$department->id}}"> {{$department->name ?? ''}} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name"><label for="" class="text-danger">*</label> Номи</label>
+                                    <input type="text" class="form-control" placeholder="Номи" name="name">
+                                    <input hidden name="type" value="p">
+                                    <div class="form-group">
+                                        <label for="description">Изох</label>
+                                        <textarea type="text" class="form-control" placeholder="Изох"
+                                                  name="description"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Сақлаш</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             </div>
 

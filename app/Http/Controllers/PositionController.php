@@ -4,88 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PositionRequest;
 use App\Position;
+use App\Structure;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index($id)
     {
-        return Position::all();
+        $department = Structure::findOrFail($id);
+        return view('position.index', [
+            'positions' => Structure::where('pid', $id)->where('type', 'p')->get(),
+            'department' => $department,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function create($id)
     {
-        //
+        $department = Structure::findOrFail($id);
+        return view('position.create', [
+            'department' => $department,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(PositionRequest $positionRequest)
+    public function store(Request $request)
     {
-        $data = $positionRequest->validated();
-        return Position::create($data);
+        $id = $request->input('pid');
+        $data = $request->all();
+        Structure::create($data);
+        return redirect()->route('position.index', $id)
+            ->with('success', 'Муваффақиятли қўшилди.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
     public function show($position_id)
     {
-        return Position::find($position_id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Position $position)
-    {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function update($position_id, PositionRequest $positionRequest)
+    public function edit($id)
     {
-        $data = $positionRequest->validated();
-        $position = Position::find($position_id);
-        $position->update($data);
-        return $position;
+        $position = Structure::findOrFail($id);
+        return view('position.edit', [
+            'position' => $position,
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
+    public function update($id, Request $request)
+    {
+        $data = $request->all();
+        $position = Structure::find($id);
+        $position->update($data);
+        return redirect()->route('position.index', $position->pid)
+            ->with('success', 'Муваффақиятли тахрирланди.');
+    }
+
     public function destroy($position_id)
     {
-        Position::find($position_id)->delete();
-        return response()->noContent();
+        $data = Structure::where('id', $position_id)->first();
+        $route = $data->pid;
+        if ($data) {
+            $data->delete();
+            return redirect()->route('position.index', $route)
+                ->with('success', 'Муваффақиятли ўчирилди');
+        } else {
+            return redirect()->route('position.index', $route)
+                ->with('error', 'Учирилиб бўлмади');
+        }
     }
 }

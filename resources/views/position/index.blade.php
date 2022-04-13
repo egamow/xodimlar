@@ -1,19 +1,18 @@
 @extends('layout')
-@section('title')Ташкилий структура@endsection
+@section('title')Штатлар@endsection
 @section('main_content')
     <!-- Main Content -->
-    <link rel="stylesheet" href="{{asset('assets/newplugins/hierarchical-tree-table-view/css/tree-table.css')}}">
     <section class="content profile-page">
         <div class="container">
             <div class="block-header">
                 <div class="row clearfix">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <h2>Ташкилий структура</h2>
+                        <h2>{{$department->name ?? null }} штатлари</h2>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">
                             <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
-                            <li class="breadcrumb-item active">Ташкилий структура</li>
+                            <li class="breadcrumb-item active">{{$department->name ?? null }} штатлари</li>
                         </ul>
                     </div>
                 </div>
@@ -22,7 +21,10 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('structure.create') }}"> Қўшиш</a>
+                            <a class="btn btn-info" href="{{ route('structure.index') }}"> Ортга кайтиш</a>
+{{--                        </div>--}}
+{{--                        <div class="pull-right">--}}
+                            <a class="btn btn-primary" href="{{ route('cposition.create', $department->id) }}"> Қўшиш</a>
                         </div>
                     </div>
                 </div>
@@ -33,17 +35,31 @@
                     </div>
                 @endif
 
-                <table class="table table-striped table-bordered tree-table">
+                <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Номи</th>
-                        <th width="300" scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody id="table-tree">
+                    <tbody>
+                    @foreach ($positions as $key=>$position)
+                        <tr>
+                            <td class="text-center">{{ ++$key }}</td>
+                            <td>{{ $position->name }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary"
+                                   href="{{ route('eposition.edit',$position->id) }}">Таҳрирлаш </a>
+                                <button class="btn btn-sm btn-danger"
+                                        onclick="loadDeleteModal({{ $position->id }})">Ўчириш
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
-                @if( !count($items) )
+                @if( !count($positions) )
                     <div class="align-center">Маълумот йук</div>
                 @endif
             </div>
@@ -71,24 +87,9 @@
     </div>
 
     <script>
-        var items = [
-                @foreach($items as $item)
-            {
-                id: {{ $item->id }},
-                name: '{{ $item->name }}',
-                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('position.index',$item->id) }}">Штатлари </a> <a class="btn btn-sm btn-secondary" href="{{ route('structure.edit',$item->id) }}">Таҳрирлаш </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})">Ўчириш </button></td>',
-                @if($item->pid) parentId: {{ $item->pid }}, @endif
-            },
-            @endforeach
-        ];
-    </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="{{asset('assets/newplugins/hierarchical-tree-table-view/tree-table.js')}}"></script>
-
-    <script>
         function loadDeleteModal(id) {
-            var route = '{{ route("structure.destroy", ":structure") }}';
-            route = route.replace(':structure', id);
+            var route = '{{ route("position.destroy", ":position") }}';
+            route = route.replace(':position', id);
             $('#deleteFormClient').attr('action', route);
             $('#deleteModal').modal('show');
         }

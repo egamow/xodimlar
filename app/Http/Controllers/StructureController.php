@@ -9,7 +9,7 @@ class StructureController extends Controller
 {
     public function index()
     {
-        return view('structure.index', ['items' => Structure::all()]);
+        return view('structure.index', ['items' => Structure::where('type', 'd')->get()]);
     }
 
     public function create()
