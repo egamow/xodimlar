@@ -9,7 +9,9 @@ class StructureController extends Controller
 {
     public function index()
     {
-        return view('structure.index', ['items' => Structure::where('type', 'd')->get()]);
+        return view('structure.index', [
+            'items' => Structure::where('type', 'd')->withCount('countPositions')->get()
+        ]);
     }
 
     public function create()

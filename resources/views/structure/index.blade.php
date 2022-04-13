@@ -37,7 +37,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Номи</th>
-                        <th width="300" scope="col"></th>
+                        <th width="350" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody id="table-tree">
@@ -76,7 +76,7 @@
             {
                 id: {{ $item->id }},
                 name: '{{ $item->name }}',
-                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('position.index',$item->id) }}">Штатлари </a> <a class="btn btn-sm btn-secondary" href="{{ route('structure.edit',$item->id) }}">Таҳрирлаш </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})">Ўчириш </button></td>',
+                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('position.index',$item->id) }}">Штатлари ({{$item->count_positions_count}}) </a> <a class="btn btn-sm btn-secondary" href="{{ route('structure.edit',$item->id) }}">Таҳрирлаш </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})">Ўчириш </button></td>',
                 @if($item->pid) parentId: {{ $item->pid }}, @endif
             },
             @endforeach
