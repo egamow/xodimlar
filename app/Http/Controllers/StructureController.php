@@ -7,18 +7,25 @@ use Illuminate\Http\Request;
 
 class StructureController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $department_id = $request->get('department_id');
+        $department = Structure::where('id', $department_id)->first();
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
         return view('structure.index', [
-            'items' => Structure::where('type', 'd')->withCount('countPositions')->get()
+            'items' => Structure::where('type', 'd')->withCount('countPositions')->get(),
+            'department' => $department ?? null,
+            'positions' => $positions,
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $department_id = $request->get('department_id') ?? null;
         $departments = Structure::where('type', 'd')->get();
         return view('structure.create', [
             'departments' => $departments,
+            'department_id' => $department_id,
         ]);
     }
 

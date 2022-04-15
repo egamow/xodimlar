@@ -20,32 +20,79 @@
             </div>
             <div class="clearfix m-b-20">
                 <div class="row">
-                    <div class="col-lg-12 margin-tb">
+                    <div class="col-lg-8 col-md-12 margin-tb">
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('structure.create') }}"> Қўшиш</a>
                         </div>
+
+
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        <table class="table table-striped table-bordered tree-table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Номи</th>
+                                <th width="250" scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-tree">
+                            </tbody>
+                        </table>
+                        @if( !count($items) )
+                            <div class="align-center">Маълумот йўк</div>
+                        @endif
+                    </div>
+                    <div class="col-lg-4 col-md-12 margin-tb">
+                        <h5>Штатлар</h5>
+                        <div class="pull-right">
+                            <label>{{ $department->name ?? 'Бўлимни танланг' }}</label>
+                            @if ($department)
+                                <a class="btn btn-primary small float-right" href="{{ route('cposition.create', $department->id ) }}">
+                                    Штат кўшиш</a>
+                        </div>
+
+
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Номи</th>
+                                <th scope="col" class="text-center" width="80"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($positions as $key=>$position)
+                                <tr>
+                                    <td class="text-center">{{ ++$key }}</td>
+                                    <td>{{ $position->name }}</td>
+                                    <td>
+                                        <a class="text-secondary"
+                                           href="{{ route('eposition.edit',$position->id) }}"><i
+                                                    class="material-icons">edit</i> </a>
+                                        <a href="#" onclick="loadDeleteModal({{ $position->id }})"><i
+                                                    class="material-icons">delete_forever</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        @if( !count($positions) )
+                            <div class="align-center">Маълумот йук</div>
+                        @endif
+                        @endif
                     </div>
                 </div>
-
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-
-                <table class="table table-striped table-bordered tree-table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Номи</th>
-                        <th width="350" scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="table-tree">
-                    </tbody>
-                </table>
-                @if( !count($items) )
-                    <div class="align-center">Маълумот йук</div>
-                @endif
             </div>
         </div>
     </section>
@@ -75,8 +122,8 @@
                 @foreach($items as $item)
             {
                 id: {{ $item->id }},
-                name: '{{ $item->name }}',
-                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('position.index',$item->id) }}">Штатлари ({{$item->count_positions_count}}) </a> <a class="btn btn-sm btn-secondary" href="{{ route('structure.edit',$item->id) }}">Таҳрирлаш </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})">Ўчириш </button></td>',
+                name: '<a style="color:inherit" href="{{ route('structure.index',['department_id'=>$item->id]) }}">{{ $item->name }} ({{$item->count_positions_count}}) </a>',
+                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('structure.create',['department_id'=>$item->id]) }}"><i class="material-icons">add</i> </a> <a class="btn btn-sm btn-secondary" href="{{ route('structure.edit',$item->id) }}"><i class="material-icons">edit</i> </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})"><i class="material-icons">delete_forever</i> </button></td>',
                 @if($item->pid) parentId: {{ $item->pid }}, @endif
             },
             @endforeach

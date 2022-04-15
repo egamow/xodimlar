@@ -38,11 +38,11 @@
                         <form action="{{ route('structure.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="user_id">Юқори бўлим</label>
+                                <label for="user_id">Юқори бўлим </label>
                                 <select class="form-control" name="pid" data-live-search="true">
                                     <option></option>
                                     @foreach($departments as $department)
-                                        <option value="{{$department->id}}"> {{$department->name ?? ''}} </option>
+                                        <option @if ($department_id && $department_id == $department->id) selected @endif value="{{$department->id}}"> {{$department->name ?? ''}} </option>
                                     @endforeach
                                 </select>
                             </div>

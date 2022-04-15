@@ -30,10 +30,10 @@ class PositionController extends Controller
 
     public function store(Request $request)
     {
-        $id = $request->input('pid');
+//        $id = $request->input('pid');
         $data = $request->all();
         Structure::create($data);
-        return redirect()->route('position.index', $id)
+        return redirect()->route('structure.index')
             ->with('success', 'Муваффақиятли қўшилди.');
     }
 
