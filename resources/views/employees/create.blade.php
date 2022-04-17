@@ -46,6 +46,27 @@
                         <label for="login">Табел рақами</label>
                         <input type="text" class="form-control"  placeholder="Табел рақами" name ="login">
                     </div>
+
+                    <div class="form-group">
+                        <label for="user_id">Юқори бўлим </label>
+                        <select class="form-control" name="pid" data-live-search="true">
+                            <option></option>
+                            @foreach($departments as $department)
+                                <option value="{{$department->id}}"> {{$department->name ?? ''}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_id">Юқори бўлим </label>
+                        <select class="form-control" name="pid" data-live-search="true">
+                            <option></option>
+                            @foreach($departments as $department)
+                                <option value="{{$department->id}}"> {{$department->name ?? ''}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="lastname">Фамилияси</label>
                         <input type="text" class="form-control" placeholder ="Фамилияси" name="lastname">
