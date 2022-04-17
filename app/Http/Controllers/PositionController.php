@@ -32,8 +32,8 @@ class PositionController extends Controller
     {
 //        $id = $request->input('pid');
         $data = $request->all();
-        Structure::create($data);
-        return redirect()->route('structure.index')
+        $structure = Structure::create($data);
+        return redirect()->route('structure.index', ['department_id' => $structure->pid])
             ->with('success', 'Муваффақиятли қўшилди.');
     }
 
@@ -55,7 +55,7 @@ class PositionController extends Controller
         $data = $request->all();
         $position = Structure::find($id);
         $position->update($data);
-        return redirect()->route('position.index', $position->pid)
+        return redirect()->route('structure.index', ['department_id' => $position->pid])
             ->with('success', 'Муваффақиятли тахрирланди.');
     }
 

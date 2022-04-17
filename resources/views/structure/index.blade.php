@@ -20,7 +20,7 @@
             </div>
             <div class="clearfix m-b-20">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 margin-tb">
+                    <div class="col-lg-7 col-md-12 margin-tb">
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('structure.create') }}"> Қўшиш</a>
                         </div>
@@ -46,7 +46,7 @@
                             <div class="align-center">Маълумот йўк</div>
                         @endif
                     </div>
-                    <div class="col-lg-4 col-md-12 margin-tb">
+                    <div class="col-lg-5 col-md-12 margin-tb">
                         <h5>Штатлар</h5>
                         <div class="pull-right">
                             <label>{{ $department->name ?? 'Бўлимни танланг' }}</label>
