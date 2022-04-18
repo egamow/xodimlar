@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <select class="form-control show-tick department" name="department_id" id="department_id"
                                     data-live-search="true">
-                                <option disabled selected> Танланг</option>
+                                <option value="" selected> Танланг</option>
                                 @foreach($departments as $department)
                                     <option value="{{$department->id}}">{{$department->name}}</option>
                                 @endforeach
@@ -147,7 +147,7 @@
                         <div class="form-group">
                             <select class="form-control show-tick" name="position_id" id="position_id">
                                 data-live-search="true">
-                                <option disabled selected> Танланг</option>
+                                <option value="" selected> Танланг</option>
                                 @foreach($positions as $position)
                                     <option value="{{$position->id}}">{{$position->name}}</option>
                                 @endforeach

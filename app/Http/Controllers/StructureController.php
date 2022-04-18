@@ -108,11 +108,11 @@ class StructureController extends Controller
                 $item->delete();
             });
             $data->delete();
-            return redirect()->route('structure.index')
-                ->with('success', 'Муваффақиятли ўчирилди');
+            return redirect()->route('structure.index');
+//                ->with('success', 'Муваффақиятли ўчирилди');
         } else {
-            return redirect()->route('structure.index')
-                ->with('error', 'Учирилиб бўлмади');
+            return redirect()->route('structure.index');
+//                ->with('error', 'Учирилиб бўлмади');
         }
     }
 }

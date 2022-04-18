@@ -65,8 +65,8 @@ class PositionController extends Controller
         $route = $data->pid;
         if ($data) {
             $data->delete();
-            return redirect()->route('position.index', $route)
-                ->with('success', 'Муваффақиятли ўчирилди');
+            return redirect()->route('position.index', $route);
+//                ->with('success', 'Муваффақиятли ўчирилди');
         } else {
             return redirect()->route('position.index', $route)
                 ->with('error', 'Учирилиб бўлмади');
