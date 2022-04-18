@@ -33,7 +33,14 @@
                         <p>{{ $message }}</p>
                     </div>
                 @endif
-
+                <form action="{{route('admin.index')}}" method="GET">
+                    <div class="input-group ">
+                        <input type="text" class="form-control" name="search" value=""
+                               placeholder="Кидириш...">
+                        <span class="input-group-addon"><i class="zmdi zmdi-search"></i></span>
+                    </div>
+                    <button hidden type="submit"></button>
+                </form>
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
@@ -166,7 +173,7 @@
                         </div>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="number" class="form-control" name="phone" id="phone"
+                                <input type="text" class="form-control" name="phone" id="phone"
                                        placeholder="Телефон" value="">
                             </div>
                         </div>
@@ -230,17 +237,17 @@
             })
         }
     </script>
-    <script>
-        $("select").on("changed.bs.select", function (e) {
-            console.log('asdadadad', $(this).val());
-            var url = {{route('admin.index', ':department_id')}};
-            url = url.replace(':department_id', $(this).val());
-            $.get(url, function (data) {
-                //success data
-                console.log(data);
-            })
-        });
-    </script>
+{{--    <script>--}}
+{{--        $("select").on("changed.bs.select", function (e) {--}}
+{{--            console.log('asdadadad', $(this).val());--}}
+{{--            var url = {{route('admin.index', ':department_id')}};--}}
+{{--            url = url.replace(':department_id', $(this).val());--}}
+{{--            $.get(url, function (data) {--}}
+{{--                //success data--}}
+{{--                console.log(data);--}}
+{{--            })--}}
+{{--        });--}}
+{{--    </script>--}}
 
     <!-- Jquery Core Js -->
     <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->

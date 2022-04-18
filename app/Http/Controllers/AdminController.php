@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    public function index($department_id = null)
+    public function index(Request $request)
     {
         $departments = Structure::where('type', 'd')->get();
         $positions = Structure::where('type', 'p')->get();
-        if ($department_id) {
-            $positions = $positions->where('pid', $department_id);
+        $search = $request->input('search');
+        $users = User::where('is_staff', true)->orderByDesc('created_at');
+
+        if (isset($search)) {
+            $users = $users->where('firstname', 'like', '%' . $search . '%')
+                ->orWhere('lastname', 'like', '%' . $search . '%')
+                ->orWhere('middlename', 'like', '%' . $search . '%');
         }
-        $users = DB::table('users')->where('is_staff', true)->orderByDesc('created_at')->paginate(10);
+        $users = $users->paginate(10);
         return view('admin.index', compact('departments', 'positions', 'users'));
 //        return view('admin.index', ['users'=> $users]);
     }

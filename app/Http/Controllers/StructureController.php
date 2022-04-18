@@ -11,10 +11,16 @@ class StructureController extends Controller
     {
         $department_id = $request->get('department_id');
         $department = Structure::where('id', $department_id)->first();
+        $search = $request->get('search') ?? null;
+        $departments = Structure::where('type', 'd')->orderBy('id');
+        if (isset($search)) {
+            $departments = Structure::where('type', 'd')->where('name', 'like', '%' . $search . '%');
+        }
         $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
         return view('structure.index', [
-            'items' => Structure::where('type', 'd')->withCount('countPositions')->get(),
+            'items' => $departments->withCount('countPositions')->get(),
             'department' => $department ?? null,
+            'departments' => $departments->get(),
             'positions' => $positions,
         ]);
     }
@@ -33,7 +39,7 @@ class StructureController extends Controller
     {
         return view('structure.edit', [
             'structure' => $structure,
-            'departments' => Structure::where('type', 'd')->get(),
+            'departments' => Structure::where('type', 'd')->orderBy('id')->get(),
         ]);
     }
 
@@ -50,10 +56,19 @@ class StructureController extends Controller
                 'pid' => 'nullable']);
         }
         $data = $request->all();
-        Structure::create($data);
+        $model = Structure::create($data);
+        $data['type'] == 'p' ? $department = Structure::where('id', $data['pid'])->first() : $department = Structure::find($model->id)->first();
 
-        return redirect()->route('structure.index')
-            ->with('success', 'Муваффақиятли қўшилди.');
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
+        return view('structure.index', [
+            'items' => Structure::where('type', 'd')->withCount('countPositions')->get(),
+            'department' => $department,
+            'departments' => Structure::where('type', 'd')->orderBy('id')->get(),
+            'positions' => $positions,
+        ]);
+
+//        return redirect()->route('structure.index')
+//            ->with('success', 'Муваффақиятли қўшилди.');
     }
 
 
@@ -66,10 +81,21 @@ class StructureController extends Controller
     public function update($id, Request $request)
     {
         $data = $request->all();
-        $id = Structure::find($id);
-        $id->update($data);
-        return redirect()->route('structure.index')
-            ->with('success', 'Муваффақиятли тахрирланди.');
+        $model = Structure::find($id);
+
+        $model->update($data);
+        $data['type'] == 'p' ? $department = Structure::where('id', $data['pid'])->first() : $department = $model;
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
+        $departments = Structure::where('type', 'd')->orderBy('id')->get();
+
+        return view('structure.index', [
+            'items' => Structure::where('type', 'd')->withCount('countPositions')->orderBy('id')->get(),
+            'department' => $department ?? null,
+            'departments' => $departments,
+            'positions' => $positions,
+        ]);
+//        return redirect()->route('structure.index')
+//            ->with('success', 'Муваффақиятли тахрирланди.');
     }
 
 
