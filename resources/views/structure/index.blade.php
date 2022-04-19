@@ -49,7 +49,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Номи</th>
-                                <th width="250" scope="col"></th>
+                                <th width="200" scope="col"></th>
                             </tr>
                             </thead>
                             <tbody id="table-tree">
@@ -60,61 +60,38 @@
                         @endif
                     </div>
                     <div class="col-lg-5 col-md-12 margin-tb">
-                        <h5>Штатлар </h5>
-                        <div class="pull-right">
-                            <label>{{ $department->name ?? 'Бўлимни танланг' }}</label>
-                            @if ($department)
-                                {{--                                <a class="btn btn-primary small float-right"--}}
-                                {{--                                   href="{{ route('cposition.create', $department->id ) }}">--}}
-                                {{--                                    Штат кўшиш</a>--}}
-                        </div>
-
+                        <br>
+                        <br>
+                        <h5 class="my-2 mb-1">Штатлар </h5>
 
                         @if ($message = Session::get('success'))
                             <div class="alert alert-success">
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
-                        <ul class="list-group">
-                            @foreach ($positions as $key=>$position)
-                                <li class="list-group-item ">
-                                    <a class="text-secondary mr-2" onclick="loadEditModal({{ $position->id }})"
-                                       href="#"><i class="zmdi zmdi-edit"></i> </a>
-                                    <a href="#" class="mr-2" onclick="loadDeleteModal({{ $position->id }})"><i
-                                                class="zmdi zmdi-delete"></i>
-                                    </a>
-                                    {{ $position->name }}
-                                </li>
-                            @endforeach
-                        </ul>
-                        {{--                        <table class="table table-striped table-bordered">--}}
-                        {{--                            <thead>--}}
-                        {{--                            <tr>--}}
-                        {{--                                <th scope="col">#</th>--}}
-                        {{--                                <th scope="col">Номи</th>--}}
-                        {{--                                <th scope="col" class="text-center" width="80"></th>--}}
-                        {{--                            </tr>--}}
-                        {{--                            </thead>--}}
-                        {{--                            <tbody>--}}
-                        {{--                            @foreach ($positions as $key=>$position)--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td class="text-center">{{ ++$key }}</td>--}}
-                        {{--                                    <td>{{ $position->name }}</td>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <a class="text-secondary" onclick="loadEditModal({{ $position->id }})"--}}
-                        {{--                                           href="#"><i--}}
-                        {{--                                                    class="material-icons">edit</i> </a>--}}
-                        {{--                                        <a href="#" onclick="loadDeleteModal({{ $position->id }})"><i--}}
-                        {{--                                                    class="material-icons">delete_forever</i>--}}
-                        {{--                                        </a>--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                            @endforeach--}}
-                        {{--                            </tbody>--}}
-                        {{--                        </table>--}}
-                        @if( !count($positions) )
-                            <div class="align-center">Маълумот йук</div>
+                        @if ($department)
+                            <ul class="list-group">
+                                @foreach ($positions as $key=>$position)
+                                    <li class="list-group-item ">
+                                        @if (auth()->user()->personnel_officer)
+                                        <a class="btn btn-sm btn-info px-2 py-1 m-0 mr-2"
+                                           onclick="loadEditModal({{ $position->id }})"
+                                           href="#"><i class="zmdi zmdi-edit"></i> </a>
+                                        <a href="#" class="btn btn-sm btn-danger px-2 py-1 m-0 mr-2"
+                                           onclick="loadDeleteModal({{ $position->id }})"><i
+                                                    class="zmdi zmdi-delete"></i>
+                                        </a>
+                                        @else
+                                            -
+                                        @endif
+                                        {{ $position->name }}
+                                    </li>
+                                @endforeach
+                            </ul>
                         @endif
+
+                        @if( !count($positions) )
+                            <div class="">Булимни танланг</div>
                         @endif
                     </div>
                 </div>
@@ -237,8 +214,15 @@
             {
                 id: {{ $item->id }},
                 name: '<a style="color:inherit" href="{{ route('structure.index',['department_id'=>$item->id]) }}">{{ $item->name }} ({{$item->count_positions_count}}) </a>',
-                action: '<td> <a class="btn btn-sm btn-primary" title="Куйи булим кушиш"  onclick="loadAddModal({{$item->id}}, `d`)" href="#"><i class="material-icons">add</i> </a> <td> <a class="btn btn-sm btn-primary" title="Штат кушиш" onclick="loadAddModal({{$item->id}}, `p`)" href="#"><i class="material-icons">playlist_add</i> </a> <a class="btn btn-sm btn-secondary" title="Тахрирлаш" onclick="loadEditModal({{ $item->id }})" href="#"><i class="material-icons">edit</i> </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})"><i class="material-icons">delete_forever</i> </button></td>',
-                @if($item->pid) parentId: {{ $item->pid }}, @endif
+                @if (auth()->user()->personnel_officer)
+                action: '<td > <a class="btn btn-sm btn-primary" title="Куйи булим кушиш"  onclick="loadAddModal({{$item->id}}, `d`)" href="#"><i class="zmdi zmdi-plus"></i> </a> '
+                    + '<td> <a class="btn btn-sm btn-primary" title="Штат кушиш" onclick="loadAddModal({{$item->id}}, `p`)" href="#"><i class="zmdi zmdi-playlist-plus"></i> </a> '
+                    + '<a class="btn btn-sm btn-secondary" title="Тахрирлаш" onclick="loadEditModal({{ $item->id }})" href="#"><i class="zmdi zmdi-edit"></i> </a>'
+                    + ' <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})"><i class="zmdi zmdi-delete"></i> </button></td>',
+                @else
+                action: '<td class="py-3"> </td>',
+                @endif
+                        @if($item->pid) parentId: {{ $item->pid }}, @endif
             },
             @endforeach
         ];

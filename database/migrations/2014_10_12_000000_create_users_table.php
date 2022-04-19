@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('firstname');
             $table->string('middlename')->nullable();
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->string('phone')->unique();
             $table->integer('region_id')->nullable();
             $table->boolean('is_staff')->default(0);

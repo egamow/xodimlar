@@ -14,8 +14,8 @@ class AdminController extends Controller
     {
         $departments = Structure::where('type', 'd')->get();
         $positions = Structure::where('type', 'p')->get();
-        $search = $request->input('search');
         $users = User::where('is_staff', true)->orderByDesc('created_at');
+        $search = $request->input('search');
 
         if (isset($search)) {
             $users = $users->where('firstname', 'like', '%' . $search . '%')

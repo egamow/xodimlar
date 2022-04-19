@@ -133,7 +133,7 @@
             }
 
             var spanEle2 = document.createElement('span');
-            $(spanEle2).addClass('tree-table-td-content');
+            $(spanEle2).addClass('tree-table-td-content  text-wrap');
             $(spanEle2).html(item.name);
             $(tdEle1).append(spanEle2);
 
@@ -145,7 +145,7 @@
             // $(tdEle2).append(spanTd2);
 
             var tdEle3 = document.createElement('td');
-            $(tdEle3).css('width', '350px');
+            // $(tdEle3).css('width', '300px');
             var spanTd3 = document.createElement('span');
             $(spanTd3).addClass('tree-table-td-content');
             $(spanTd3).html(item.action);

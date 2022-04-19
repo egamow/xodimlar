@@ -12,27 +12,39 @@
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">
-                            <li class="breadcrumb-item"><a href="{{ route('employees.index') }}"><i class="zmdi zmdi-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('employees.index') }}"><i
+                                            class="zmdi zmdi-home"></i></a></li>
                             <li class="breadcrumb-item active">Ходимлар рўйхати</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="clearfix m-b-20">
-                <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('employees.create') }}"> Янги ходим қўшиш</a>
+                @if (auth()->user()->personnel_officer)
+
+                    <div class="row">
+                        <div class="col-lg-12 margin-tb">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" onclick="loadAddModal()" href="#"> Янги ходим
+                                    қўшиш</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
                 @endif
-
+                <form action="{{route('employees.index')}}" method="GET">
+                    <div class="input-group ">
+                        <input type="text" class="form-control" name="search" placeholder="Кидириш..."
+                               value="{{ $search }}">
+                        <span class="input-group-addon"><i class="zmdi zmdi-search"></i></span>
+                    </div>
+                    <button hidden type="submit"></button>
+                </form>
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
@@ -51,20 +63,19 @@
                             <td>{{ $employee->lastname }} {{ $employee->firstname }} {{ $employee->middlename}}</td>
                             <td>{{ $employee->birthdate }}</td>
                             <td>{{ $employee->phone }}</td>
-                            <td hidden>{{ $employee->department_id }} {{ $employee->position_id }}</td>
+                            {{--                            <td hidden>{{ $employee->department_id }} {{ $employee->position_id }}</td>--}}
                             <td>
-                                {{--<form action="{{ route('employees.destroy',$employee->id) }}" method="POST">--}}
-                                    <a class="btn btn-sm btn-info" href="{{ route('employees.show',$employee->id) }}">Кўриш</a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('employees.edit',$employee->id) }}">Таҳрирлаш</a>
-                                    {{--@csrf--}}
-                                    {{--@method('DELETE')--}}
-                                    <button class="btn btn-sm btn-danger"
-                                            data-modal-id="myModal" data-user_id="{{$employee->id}}"
-                                            data-toggle="modal" data-target="#myModal">Delete</button>
-                                    {{--<button type="button" data-user_id="{{$employee->id}}" data-color="pink" data-toggle="modal" data-target="#colorModal" class="btn bg-pink waves-effect">PINK</button>--}}
+                                <a class="btn btn-sm btn-info"
+                                   href="{{ route('employees.show',$employee->id) }}">Кўриш</a>
+                                @if (auth()->user()->personnel_officer)
 
-                                    {{--<button type="submit" class="btn btn-sm btn-danger">Ўчириш</button>--}}
-                                {{--</form>--}}
+                                    <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $employee->id }})"
+                                       href="#"><i class="zmdi zmdi-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger"
+                                            onclick="loadDeleteModal({{ $employee->id }})"><i
+                                                class="zmdi zmdi-delete"></i>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -75,29 +86,177 @@
 
         </div>
     </section>
-    <!-- For Material Design Colors -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <!-- Add Modal HTML -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content bg-danger">
-                <div class="modal-header">
-                    <h4 class="title" id="defaultModalLabel">Color Modal title</h4>
-                </div>
-                <div class="modal-body"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
-                </div>
-                <div class="modal-footer">
-                    <form action="{{ route('employees.destroy', 1) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                    <button type="submit" class="btn btn-primary btn-round">Ўчириш</button>
-                    </form>
-                    {{--<button type="button" class="btn btn-primary btn-round">SAVE CHANGES</button>--}}
-                    <button type="button" class="btn btn-primary btn-round" data-dismiss="modal">CLOSE</button>
-                </div>
+            <div class="modal-content">
+                <form action="{{route('employees.store')}}" method="POST">
+                    @csrf
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title">Ходим қўшиш</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="number" required class="form-control" name="login" placeholder="Логин">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="department_id"
+                                    data-live-search="true">
+                                <option value="" selected> Танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="position_id" data-live-search="true">
+                                <option value="" selected> Танланг</option>
+                                @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" required class="form-control" name="lastname"
+                                       placeholder="Фамилия" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" required class="form-control" name="firstname"
+                                       placeholder="Исми" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="middlename"
+                                       placeholder="Отасини исми" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="date" class="form-control" name="birthdate"
+                                       placeholder="Тугилган санаси" value="1990-01-01">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="phone"
+                                       placeholder="Телефон" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                            Бекор килиш
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal HTML -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="editFormClient">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title" id="defaultModalLabel">Тахрирлаш</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="number" class="form-control" name="login" id="login" placeholder="Логин"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick department" name="department_id" id="department_id"
+                                    data-live-search="true">
+                                <option value="" selected> Танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="position_id" id="position_id">
+                                data-live-search="true">
+                                <option value="" selected> Танланг</option>
+                                @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="lastname" id="lastname"
+                                       placeholder="Фамилия" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="firstname" id="firstname"
+                                       placeholder="Исми" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="middlename" id="middlename"
+                                       placeholder="Отасини исми" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="date" class="form-control" name="birthdate" id="birthdate"
+                                       placeholder="Тугилган санаси" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="phone" id="phone"
+                                       placeholder="Телефон" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                            Бекор килиш
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Delete Modal HTML --}}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="deleteFormClient">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title" id="defaultModalLabel">Учирмокчимисиз?</h4>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
+                        <button type="button" class="btn btn-outline-secondary btn-round waves-effect"
+                                data-dismiss="modal">Йук
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-      <!-- Jquery Core Js -->
+    <!-- Jquery Core Js -->
 
     <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
     <script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- slimscroll, waves Scripts Plugin Js -->
@@ -105,17 +264,39 @@
     <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui/sortable-nestable.js')}}"></script>
     <script src="http://foundation.zurb.com/sites/docs/assets/js/foundation.js?hash=b679e2177e3de7e04f4c100d03af1ad3"></script>
-    <script >
-        $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('user_id') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
-        })
+    <script>
+        function loadAddModal() {
+            $('#addModal').modal('show');
+        }
+    </script>
+    <script>
+        function loadEditModal(id) {
+            var route = '{{ route("admin.show", ":id") }}';
+            var action_route = '{{ route("employees.update", ":id_update") }}';
+            route = route.replace(':id', id);
+            $.get(route, function (data) {
+                action_route = action_route.replace(':id_update', data.id);
+                $('#editFormClient').attr('action', action_route);
+                $('#login').val(data.login);
+                $('#lastname').val(data.lastname);
+                $('#firstname').val(data.firstname);
+                $('#middlename').val(data.middlename);
+                $('#phone').val(data.phone);
+                $('#birthdate').val(data.birthdate);
+                $('#editModal').modal('show');
+                $('select[name=department_id]').val(data.department_id);
+                $('select[name=position_id]').val(data.position_id);
+                $('.show-tick').selectpicker('refresh');
+            })
+        }
+    </script>
+    <script>
+        function loadDeleteModal(id) {
+            var route = '{{ route("employees.destroy", ":admin") }}';
+            route = route.replace(':admin', id);
+            $('#deleteFormClient').attr('action', route);
+            $('#deleteModal').modal('show');
+        }
 
     </script>
-
 @endsection

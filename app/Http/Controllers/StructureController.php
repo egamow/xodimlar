@@ -16,9 +16,9 @@ class StructureController extends Controller
         if (isset($search)) {
             $departments = Structure::where('type', 'd')->where('name', 'like', '%' . $search . '%');
         }
-        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->orderBy('id')->get() : [];
         return view('structure.index', [
-            'items' => $departments->withCount('countPositions')->get(),
+            'items' => $departments->withCount('countPositions')->orderBy('id')->get(),
             'department' => $department ?? null,
             'departments' => $departments->get(),
             'positions' => $positions,
@@ -28,7 +28,7 @@ class StructureController extends Controller
     public function create(Request $request)
     {
         $department_id = $request->get('department_id') ?? null;
-        $departments = Structure::where('type', 'd')->get();
+        $departments = Structure::where('type', 'd')->orderBy('id')->get();
         return view('structure.create', [
             'departments' => $departments,
             'department_id' => $department_id,
@@ -59,9 +59,9 @@ class StructureController extends Controller
         $model = Structure::create($data);
         $data['type'] == 'p' ? $department = Structure::where('id', $data['pid'])->first() : $department = Structure::find($model->id)->first();
 
-        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->orderBy('id')->get() : [];
         return view('structure.index', [
-            'items' => Structure::where('type', 'd')->withCount('countPositions')->get(),
+            'items' => Structure::where('type', 'd')->withCount('countPositions')->orderBy('id')->get(),
             'department' => $department,
             'departments' => Structure::where('type', 'd')->orderBy('id')->get(),
             'positions' => $positions,
@@ -85,7 +85,7 @@ class StructureController extends Controller
 
         $model->update($data);
         $data['type'] == 'p' ? $department = Structure::where('id', $data['pid'])->first() : $department = $model;
-        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->get() : [];
+        $positions = $department ? Structure::where('type', 'p')->where('pid', $department->id)->orderBy('id')->get() : [];
         $departments = Structure::where('type', 'd')->orderBy('id')->get();
 
         return view('structure.index', [
@@ -102,7 +102,7 @@ class StructureController extends Controller
     public function destroy($id)
     {
         $data = Structure::where('id', $id)->first();
-        $positions = Structure::where('pid', $id)->get();
+        $positions = Structure::where('pid', $id)->orderBy('id')->get();
         if ($data) {
             $positions->each(function ($item) {
                 $item->delete();
