@@ -9,7 +9,7 @@ class IdController extends Controller
 {
     public function index()
     {
-        return view('ids.index', ['ids' => Id::all()]);
+        return view('ids.index', ['ids' => Id::orderBy('id')->get()]);
     }
 
     public function create()

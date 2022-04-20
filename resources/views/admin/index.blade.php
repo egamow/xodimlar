@@ -62,14 +62,14 @@
                                    aria-controls="collapseExample"><i class="zmdi zmdi-settings"></i></a>
                                 <a class="btn btn-sm btn-danger margin-0" href="{{ route('admin.reset',$user->id) }}">Паролни
                                     бекор килиш</a>
-
+                                @if(false)
                                 <button class="btn btn-sm btn-info"
                                         onclick="loadEditModal({{ $user->id }})"><i class="zmdi zmdi-edit"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger"
                                         onclick="loadDeleteModal({{ $user->id }})"><i class="zmdi zmdi-delete"></i>
                                 </button>
-
+                                @endif
                                 <div class="collapse" id="collapseExample{{$user->id}}">
                                     <div class="card-title">Ходимнинг тизимдаги роллари:</div>
                                     <form action="{{route('admin.role_update', $user->id)}}" method="GET">

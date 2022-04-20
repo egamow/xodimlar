@@ -9,7 +9,7 @@ class TdController extends Controller
 {
     public function index()
     {
-        return view('tds.index', ['tds' => Td::all()]);
+        return view('tds.index', ['tds' => Td::orderBy('id')->get()]);
     }
 
     public function create()

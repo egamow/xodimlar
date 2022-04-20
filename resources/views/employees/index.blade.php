@@ -64,7 +64,7 @@
                             <td>{{ $employee->birthdate }}</td>
                             <td>{{ $employee->phone }}</td>
                             {{--                            <td hidden>{{ $employee->department_id }} {{ $employee->position_id }}</td>--}}
-                            <td>
+                            <td class="text-center">
                                 <a class="btn btn-sm btn-info"
                                    href="{{ route('employees.show',$employee->id) }}">Кўриш</a>
                                 @if (auth()->user()->personnel_officer)
@@ -102,23 +102,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <select class="form-control show-tick" name="department_id"
-                                    data-live-search="true">
-                                <option value="" selected> Танланг</option>
-                                @foreach($departments as $department)
-                                    <option value="{{$department->id}}">{{$department->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control show-tick" name="position_id" data-live-search="true">
-                                <option value="" selected> Танланг</option>
-                                @foreach($positions as $position)
-                                    <option value="{{$position->id}}">{{$position->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <div class="form-line">
                                 <input type="text" required class="form-control" name="lastname"
                                        placeholder="Фамилия" value="">
@@ -135,6 +118,23 @@
                                 <input type="text" class="form-control" name="middlename"
                                        placeholder="Отасини исми" value="">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="department_id"
+                                    data-live-search="true">
+                                <option value="" selected>Булимни танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="position_id" data-live-search="true">
+                                <option value="" selected>Штатни танланг</option>
+                                @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <div class="form-line">
@@ -176,25 +176,7 @@
                                        value="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <select class="form-control show-tick department" name="department_id" id="department_id"
-                                    data-live-search="true">
-                                <option value="" selected> Танланг</option>
-                                @foreach($departments as $department)
-                                    <option value="{{$department->id}}">{{$department->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control show-tick" name="position_id" id="position_id">
-                                data-live-search="true">
-                                <option value="" selected> Танланг</option>
-                                @foreach($positions as $position)
-                                    <option value="{{$position->id}}">{{$position->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" class="form-control" name="lastname" id="lastname"
                                        placeholder="Фамилия" value="">
@@ -211,6 +193,24 @@
                                 <input type="text" class="form-control" name="middlename" id="middlename"
                                        placeholder="Отасини исми" value="">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick department" name="department_id" id="department_id"
+                                    data-live-search="true">
+                                <option value="" selected>Булимни танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="position_id" id="position_id">
+                                data-live-search="true">
+                                <option value="" selected>Штатни танланг</option>
+                                @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <div class="form-line">
