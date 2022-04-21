@@ -18,7 +18,8 @@ class AdminController extends Controller
         $search = $request->input('search');
 
         if (isset($search)) {
-            $users = $users->where('firstname', 'like', '%' . $search . '%')
+            $users = $users->where('login', 'like', '%' . $search . '%')
+                ->orWhere('firstname', 'like', '%' . $search . '%')
                 ->orWhere('lastname', 'like', '%' . $search . '%')
                 ->orWhere('middlename', 'like', '%' . $search . '%');
         }
