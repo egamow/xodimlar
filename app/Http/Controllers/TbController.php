@@ -9,7 +9,7 @@ class TbController extends Controller
 {
     public function index()
     {
-        return view('tbs.index', ['tbs' => Tb::all()]);
+        return view('tbs.index', ['tbs' => Tb::orderBy('id')->get()]);
     }
 
     public function create()

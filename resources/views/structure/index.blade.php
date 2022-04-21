@@ -20,36 +20,174 @@
             </div>
             <div class="clearfix m-b-20">
                 <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('structure.create') }}"> Қўшиш</a>
+                    <div class="col-lg-7 col-md-12 margin-tb">
+                        <div class="d-flex justify-content-between">
+                            <div class="pull-right mr-5">
+                                <a class="btn btn-raised btn-primary btn-round waves-effect "
+                                   onclick="loadAddModal(0, 'd')" href="#"> Қўшиш</a>
+                            </div>
+                            <div class="w-100">
+                                <form action="{{route('structure.index')}}" method="GET">
+                                    <div class="input-group ">
+                                        <input type="text" class="form-control" name="search" value=""
+                                               placeholder="Кидириш...">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-search"></i></span>
+                                    </div>
+                                    <button hidden type="submit"></button>
+                                </form>
+                            </div>
                         </div>
+
+
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        <table class="table table-striped table-bordered tree-table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Номи</th>
+                                <th width="200" scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-tree">
+                            </tbody>
+                        </table>
+                        @if( !count($items) )
+                            <div class="align-center">Маълумот йўк</div>
+                        @endif
+                    </div>
+                    <div class="col-lg-5 col-md-12 margin-tb">
+                        <br>
+                        <br>
+                        <h5 class="my-2 mb-1">Штатлар </h5>
+
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($department)
+                            <ul class="list-group">
+                                @foreach ($positions as $key=>$position)
+                                    <li class="list-group-item ">
+                                        @if (auth()->user()->personnel_officer)
+                                        <a class="btn btn-sm btn-info px-2 py-1 m-0 mr-2"
+                                           onclick="loadEditModal({{ $position->id }})"
+                                           href="#"><i class="zmdi zmdi-edit"></i> </a>
+                                        <a href="#" class="btn btn-sm btn-danger px-2 py-1 m-0 mr-2"
+                                           onclick="loadDeleteModal({{ $position->id }})"><i
+                                                    class="zmdi zmdi-delete"></i>
+                                        </a>
+                                        @else
+                                            -
+                                        @endif
+                                        {{ $position->name }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+
+                        @if( !count($positions) )
+                            <div class="">Булимни танланг</div>
+                        @endif
                     </div>
                 </div>
-
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-
-                <table class="table table-striped table-bordered tree-table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Номи</th>
-                        <th width="300" scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="table-tree">
-                    </tbody>
-                </table>
-                @if( !count($items) )
-                    <div class="align-center">Маълумот йук</div>
-                @endif
             </div>
         </div>
     </section>
-    <!-- Default Size -->
+    <!-- Add modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="addFormClient">
+                    @csrf
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title" id="addModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" id="addDepTitle"></label>
+                            <select class="form-control show-tick department" name="pid" id="addpid"
+                                    data-live-search="true">
+                                <option disabled selected> Танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="name"
+                                       placeholder="Номи" value="">
+                            </div>
+                        </div>
+                        <input type="hidden" name="type" id="addtype" value="">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="description"
+                                       placeholder="Изох" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                            Бекор килиш
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="editFormClient">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title" id="editModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" id="editDepTitle"></label>
+                            <select class="form-control show-tick department" name="pid" id="pid"
+                                    data-live-search="true">
+                                <option disabled selected> Танланг</option>
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="name" id="name"
+                                       placeholder="Номи" value="">
+                            </div>
+                        </div>
+                        <input type="hidden" name="type" id="type" value="">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="description" id="description"
+                                       placeholder="Изох" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                            Бекор килиш
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Delete modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -75,9 +213,16 @@
                 @foreach($items as $item)
             {
                 id: {{ $item->id }},
-                name: '{{ $item->name }}',
-                action: '<td> <a class="btn btn-sm btn-primary" href="{{ route('structure.edit',$item->id) }}">Таҳрирлаш </a> <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})">Ўчириш </button></td>',
-                @if($item->pid) parentId: {{ $item->pid }}, @endif
+                name: '<a style="color:inherit" href="{{ route('structure.index',['department_id'=>$item->id]) }}">{{ $item->name }} ({{$item->count_positions_count}}) </a>',
+                @if (auth()->user()->personnel_officer)
+                action: '<td > <a class="btn btn-sm btn-primary" title="Куйи булим кушиш"  onclick="loadAddModal({{$item->id}}, `d`)" href="#"><i class="zmdi zmdi-plus"></i> </a> '
+                    + '<td> <a class="btn btn-sm btn-primary" title="Штат кушиш" onclick="loadAddModal({{$item->id}}, `p`)" href="#"><i class="zmdi zmdi-playlist-plus"></i> </a> '
+                    + '<a class="btn btn-sm btn-secondary" title="Тахрирлаш" onclick="loadEditModal({{ $item->id }})" href="#"><i class="zmdi zmdi-edit"></i> </a>'
+                    + ' <button class="btn btn-sm btn-danger" onclick="loadDeleteModal({{ $item->id }})"><i class="zmdi zmdi-delete"></i> </button></td>',
+                @else
+                action: '<td class="py-3"> </td>',
+                @endif
+                        @if($item->pid) parentId: {{ $item->pid }}, @endif
             },
             @endforeach
         ];
@@ -91,6 +236,46 @@
             route = route.replace(':structure', id);
             $('#deleteFormClient').attr('action', route);
             $('#deleteModal').modal('show');
+        }
+    </script>
+
+    <script>
+        function loadAddModal(pid, type) {
+            var route = '{{ route("structure.store") }}';
+            $('#addFormClient').attr('action', route);
+            $('#addModalTitle').text('Кушиш');
+
+            if (type == 'd') {
+                depTitle = 'Юкори бўлим';
+            } else {
+                depTitle = 'Бўлим';
+            }
+
+            $('#addDepTitle').text(depTitle);
+            $('#addtype').val(type);
+            $('#addModal').modal('show');
+            $('select[name=pid]').val(pid);
+            $('.show-tick').selectpicker('refresh');
+        }
+    </script>
+
+    <script>
+        function loadEditModal(id) {
+            var route = '{{ route("structure.show", ":id") }}';
+            route = route.replace(':id', id);
+            var action_route = '{{ route("structure.update", ":id_update") }}';
+            $.get(route, function (data) {
+                console.log(data);
+                action_route = action_route.replace(':id_update', data.id);
+                $('#editFormClient').attr('action', action_route);
+                $('#editModalTitle').text('Тахрирлаш');
+                $('#name').val(data.name);
+                $('#type').val(data.type);
+                $('#description').val(data.description);
+                $('#editModal').modal('show');
+                $('select[name=pid]').val(data.pid);
+                $('.show-tick').selectpicker('refresh');
+            })
         }
     </script>
 

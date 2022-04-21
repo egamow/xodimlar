@@ -18,13 +18,16 @@
                 </div>
             </div>
             <div class="clearfix m-b-20">
-                <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('ids.create') }}"> Қўшиш</a>
+                @if (auth()->user()->admin)
+
+                    <div class="row">
+                        <div class="col-lg-12 margin-tb">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" onclick="loadAddModal()" href="#">Қўшиш</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success">
@@ -38,7 +41,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Номи</th>
                         <th scope="col">Балл</th>
-                        <th scope="col"></th>
+                        @if (auth()->user()->admin) <th scope="col"></th> @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -47,13 +50,17 @@
                             <td class="text-center">{{ ++$index }}</td>
                             <td>{{ $id->name }}</td>
                             <td>{{ $id->ball }}</td>
-                            <td>
-                                <a class="btn btn-sm btn-primary"
-                                   href="{{ route('ids.edit',$id->id) }}">Таҳрирлаш </a>
-                                <button class="btn btn-sm btn-danger"
-                                        onclick="loadDeleteModal({{ $id->id }})">Ўчириш
-                                </button>
-                            </td>
+                            @if (auth()->user()->admin)
+                                <td>
+                                    <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $id->id }})"
+                                       href="#"><i class="zmdi zmdi-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger"
+                                            onclick="loadDeleteModal({{ $id->id }})"><i
+                                                class="zmdi zmdi-delete"></i>
+                                    </button>
+                                </td>
+                            @endif
+
                         </tr>
                     @endforeach
                     </tbody>
@@ -64,7 +71,76 @@
             </div>
         </div>
     </section>
-    <!-- Default Size -->
+    <!-- Add Modal HTML -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{route('ids.store')}}" method="POST">
+                    @csrf
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title">Қўшиш</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Номи</label>
+                            <input type="text" class="form-control" placeholder="Номи" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ball">Балл</label>
+                            <input type="number" step="any" class="form-control" placeholder="Балл" name="ball">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Изох</label>
+                            <textarea type="text" class="form-control" placeholder="Изох" name="description"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                            <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                                Бекор килиш
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    <!-- Edit Modal HTML -->--}}
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="editFormClient">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header justify-content-center">
+                        <h4 class="title" id="defaultModalLabel">Тахрирлаш</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Номи</label>
+                            <input type="text" class="form-control" placeholder="Номи" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ball">Балл</label>
+                            <input type="number" step="any" class="form-control" placeholder="Балл" id="ball"
+                                   name="ball">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Изох</label>
+                            <textarea type="text" class="form-control" placeholder="Изох" id="description"
+                                      name="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
+                            Бекор килиш
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Delete Modal HTML --}}
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -84,7 +160,27 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function loadAddModal() {
+            $('#addModal').modal('show');
+        }
+    </script>
+    <script>
+        function loadEditModal(id) {
+            var route = '{{ route("ids.show", ":id") }}';
+            var action_route = '{{ route("ids.update", ":id_update") }}';
+            route = route.replace(':id', id);
+            $.get(route, function (data) {
+                console.log(data);
+                action_route = action_route.replace(':id_update', data.id);
+                $('#editFormClient').attr('action', action_route);
+                $('#name').val(data.name);
+                $('#ball').val(data.ball);
+                $('#description').val(data.description);
+                $('#editModal').modal('show');
+            })
+        }
+    </script>
     <script>
         function loadDeleteModal(id) {
             var route = '{{ route("ids.destroy", ":id") }}';

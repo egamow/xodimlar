@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 //use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\StructureController;
-
 
 
 /*
@@ -26,7 +26,10 @@ Route::view('/', 'login');
 
 Route::name('user.')->group(function () {
 
-    Route::get('/login', function () { if (Auth::check()) { return redirect(route('user.main')); }
+    Route::get('/login', function () {
+        if (Auth::check()) {
+            return redirect(route('user.main'));
+        }
         return view('login');
     })->name('login');
 
@@ -52,7 +55,6 @@ Route::name('user.')->group(function () {
 });
 
 
-
 Route::get("admin/role_update/{id}", 'AdminController@role_update')->middleware('auth')->name('admin.role_update');
 Route::get("admin/reset/{id}", 'AdminController@reset')->middleware('auth')->name('admin.reset');
 Route::resource("admin", 'AdminController')->middleware('auth');
@@ -68,6 +70,13 @@ Route::resource("tb_violation", 'TbViolationController')->middleware('auth');
 Route::resource("td_violation", 'TdViolationController')->middleware('auth');
 
 Route::resource("structure", 'StructureController')->middleware('auth');
+
+Route::get("position/{id}", 'PositionController@index')->middleware('auth')->name('position.index');
+Route::get("cposition/{id}", 'PositionController@create')->middleware('auth')->name('cposition.create');
+Route::get("eposition/{id}", 'PositionController@edit')->middleware('auth')->name('eposition.edit');
+Route::post("position", 'PositionController@store')->middleware('auth')->name('position.store');
+Route::put("position/{id}", 'PositionController@update')->middleware('auth')->name('position.update');
+Route::delete("position/{id}", 'PositionController@destroy')->middleware('auth')->name('position.destroy');
 
 //Route::apiResource('category', 'CategoryController');
 //Route::apiResource('department', 'DepartmentController');
