@@ -47,12 +47,10 @@
                 </form>
                 <table class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th scope="col">Табел рақами</th>
+                    <tr class="">
+                        <th scope="col" width="50px">Табел рақами</th>
                         <th scope="col">Фамилияси, исми ва отасининг исми</th>
-                        <th scope="col">Туғилган санаси</th>
-                        <th scope="col">Телефон рақами</th>
-                        <th hidden scope="col">Бўлим ва лавозими</th>
+                        <th scope="col">Бўлим ва лавозими</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -60,13 +58,16 @@
                     @foreach ($employees as $index=>$employee )
                         <tr>
                             <td class="text-center">{{ $employee->login }}</td>
-                            <td>{{ $employee->lastname }} {{ $employee->firstname }} {{ $employee->middlename}}</td>
-                            <td>{{ $employee->birthdate }}</td>
-                            <td>{{ $employee->phone }}</td>
-                            {{--                            <td hidden>{{ $employee->department_id }} {{ $employee->position_id }}</td>--}}
+                            <td>{{ $employee->lastname }} {{ $employee->firstname }} {{ $employee->middlename}}
+                                <p class="text-black-50 font-10">
+                                  <i class="material-icons font-14 align-text-bottom">today</i>{{ $employee->birthdate }}
+                                  <i class="material-icons font-14 align-text-bottom">phone</i> {{ $employee->phone }}</p>
+                            </td>
+                            <td>
+                                {{ $employee->department_name }}<br>{{ $employee->position_name }} </td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-info"
-                                   href="{{ route('employees.show',$employee->id) }}">Кўриш</a>
+                                   href="{{ route('employees.show',$employee->id) }}"><i class="zmdi zmdi-eye"></i></a>
                                 @if (auth()->user()->personnel_officer)
 
                                     <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $employee->id }})"
