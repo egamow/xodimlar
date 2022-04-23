@@ -12,10 +12,14 @@ class IdViolationController extends Controller
 
     public function index()
     {
-        $id_violations = IdViolation::select()->with('ids')->with('user')->get();
+        $ids = Id::orderBy('id')->get();
+        $users = User::select('id', 'login', 'firstname', 'lastname')->orderBy('id')->get();
+        $id_violations = IdViolation::select()->with('ids')->with('user')->orderBy('id')->get();
 
         return view('id_violation.index', [
             'id_violations' => $id_violations,
+            'ids' => $ids,
+            'users' => $users,
         ]);
     }
 
@@ -44,6 +48,7 @@ class IdViolationController extends Controller
     {
         $data = $violationRequest->all();
         $data['author_id'] = auth()->id();
+        $data['created_at'] = $violationRequest['created_at'] ?? now();
         IdViolation::create($data);
 
         return redirect()->route('id_violation.index')

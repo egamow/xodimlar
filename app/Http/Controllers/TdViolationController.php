@@ -11,10 +11,14 @@ class TdViolationController extends Controller
 {
     public function index()
     {
-        $td_violations = TdViolation::select()->with('tds')->with('user')->get();
+        $tds = Td::orderBy('id')->get();
+        $users = User::select('id', 'login', 'firstname', 'lastname')->orderBy('id')->get();
+        $td_violations = TdViolation::select()->with('tds')->with('user')->orderBy('id')->get();
 
         return view('td_violation.index', [
             'td_violations' => $td_violations,
+            'tds' => $tds,
+            'users' => $users,
         ]);
     }
 
@@ -43,6 +47,7 @@ class TdViolationController extends Controller
     {
         $data = $request->all();
         $data['author_id'] = auth()->id();
+        $data['created_at'] = $violationRequest['created_at'] ?? now();
         TdViolation::create($data);
 
         return redirect()->route('td_violation.index')
@@ -52,7 +57,7 @@ class TdViolationController extends Controller
 
     public function show(TdViolation $tdViolation)
     {
-        return TdViolation::find($tdViolation);
+        return  $tdViolation;
     }
 
 
