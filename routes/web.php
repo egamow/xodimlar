@@ -71,6 +71,8 @@ Route::resource("td_violation", 'TdViolationController')->middleware('auth');
 
 Route::resource("structure", 'StructureController')->middleware('auth');
 
+Route::resource("course", 'CourseController')->middleware('auth');
+
 Route::get("position/{id}", 'PositionController@index')->middleware('auth')->name('position.index');
 Route::get("cposition/{id}", 'PositionController@create')->middleware('auth')->name('cposition.create');
 Route::get("eposition/{id}", 'PositionController@edit')->middleware('auth')->name('eposition.edit');
