@@ -18,14 +18,16 @@
                 </div>
             </div>
             <div class="clearfix m-b-20">
-
-                <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-right">
-                            <a class="btn btn-primary" onclick="loadAddModal()" href="#">Қўшиш</a>
+                @if (auth()->user()->admin)
+                    <div class="row">
+                        <div class="col-lg-12 margin-tb">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" onclick="loadAddModal()" href="#">Қўшиш</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
 
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success">
@@ -43,7 +45,9 @@
                         <th scope="col">Укитувчи</th>
                         <th scope="col">2-Укитувчи</th>
                         <th scope="col">Дарс бошланиши</th>
-                        <th scope="col"></th>
+                        @if (auth()->user()->admin)
+                            <th scope="col"></th>@endif
+
                     </tr>
                     </thead>
                     <tbody>
@@ -56,6 +60,7 @@
                             <td>{{ $course->user1->lastname ?? '' }} {{ $course->user1->firstname ?? '' }} {{ $course->user1->middlenam ?? ''}}</td>
                             <td>{{ $course->user2->lastname ?? '' }} {{ $course->user2->firstname ?? '' }} {{ $course->user2->middlenam ?? ''}}</td>
                             <td>{{ config('app.month.'.$course->start_month)  }}</td>
+                            @if (auth()->user()->admin)
                             <td>
                                 <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
                                    href="#"><i class="zmdi zmdi-edit"></i></a>
@@ -64,6 +69,7 @@
                                             class="zmdi zmdi-delete"></i>
                                 </button>
                             </td>
+                            @endif
 
                         </tr>
                     @endforeach
@@ -76,7 +82,9 @@
         </div>
     </section>
     <!-- Add Modal HTML -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+    @if (auth()->user()->admin)
+
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="{{route('course.store')}}" method="POST">
@@ -238,6 +246,8 @@
             </div>
         </div>
     </div>
+    @endif
+
     <script>
         function loadAddModal() {
             $('#addModal').modal('show');
