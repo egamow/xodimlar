@@ -40,7 +40,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Номи</th>
-                        <th scope="col">Талабалар сони</th>
+                        <th scope="col">Ходимлар сони</th>
                         <th scope="col">Дарслар сони</th>
                         <th scope="col">Укитувчи</th>
                         <th scope="col">2-Укитувчи</th>
@@ -62,6 +62,8 @@
                             <td>{{ config('app.month.'.$course->start_month)  }}</td>
                             @if (auth()->user()->admin)
                             <td>
+                                <a class="btn btn-sm btn-primary" href="{{ route('courses.test', $course->id) }}"><i class="zmdi zmdi-check-all"></i></a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('courses.group', $course->id) }}"><i class="zmdi zmdi-accounts-add"></i></a>
                                 <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
                                    href="#"><i class="zmdi zmdi-edit"></i></a>
                                 <button class="btn btn-sm btn-danger"
@@ -103,8 +105,8 @@
                                    name="number_of_lessons">
                         </div>
                         <div class="form-group">
-                            <label for="number_of_students">Талабалар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Талабалар сони"
+                            <label for="number_of_students">Ходимлар сони</label>
+                            <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
                                    name="number_of_students">
                         </div>
                         <div class="form-group">
@@ -175,8 +177,8 @@
                                    name="number_of_lessons" id="number_of_lessons">
                         </div>
                         <div class="form-group">
-                            <label for="number_of_students">Талабалар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Талабалар сони"
+                            <label for="number_of_students">Ходимлар сони</label>
+                            <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
                                    name="number_of_students" id="number_of_students">
                         </div>
                         <div class="form-group">

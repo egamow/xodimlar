@@ -18,4 +18,8 @@ class Course extends Model
         return $this->belongsTo(User::class, 'user2_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'groups')->withPivot('id');
+    }
 }
