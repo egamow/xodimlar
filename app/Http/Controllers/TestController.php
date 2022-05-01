@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Test;
+use App\Question;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function index($course)
+    public function question($test)
     {
-        $course = Course::find($course);
-        $tests = Test::where('course_id', $course)->orderBy('id')->get();
+        $test = Test::find($test);
+        $course = Course::where('id', $test->course_id)->first();
+        $questions = Question::where('test_id', $test->id)->orderBy('id')->get();
 
-        return view('course.test', [
+        return view('course.question', [
+            'test' => $test,
             'course' => $course,
-            'tests' => $tests
+            'questions' => $questions,
         ]);
     }
 
@@ -35,9 +38,7 @@ class TestController extends Controller
 
     public function show($test)
     {
-        $test = Test::find($test);
-
-        return $test;
+        return Test::find($test);
     }
 
     public function update(Request $request, $test)

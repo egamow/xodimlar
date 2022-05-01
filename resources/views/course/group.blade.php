@@ -23,7 +23,8 @@
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
                                 <a class="btn btn-primary" href="#"
-                                   @if ( $course->number_of_students > count($groups) ) onclick="loadAddModal()" @else disabled @endif
+                                   @if ( $course->number_of_students > count($groups) ) onclick="loadAddModal()"
+                                   @else disabled @endif
                                 >Қўшиш</a>
                             </div>
                         </div>
@@ -36,14 +37,14 @@
                     </div>
                 @endif
 
-                    <p>Максимал ходим {{ $course->number_of_students }} та кўшиш мумкин</p>
+                <p>Максимал ходим {{ $course->number_of_students }} та кўшиш мумкин</p>
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col" class="text-center"  width="50px">#</th>
+                        <th scope="col" class="text-center" width="50px">#</th>
                         <th scope="col">Ходим Ф.И.Ш</th>
                         @if (auth()->user()->admin)
-                            <th scope="col"   width="50px"></th>@endif
+                            <th scope="col" width="50px"></th>@endif
 
                     </tr>
                     </thead>

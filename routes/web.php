@@ -82,6 +82,12 @@ Route::put('test/{id}', 'TestController@update')->middleware('auth')->name('test
 Route::get('test/{id}/', 'TestController@show')->middleware('auth')->name('test.show');
 Route::delete('test/{id}', 'TestController@destroy')->middleware('auth')->name('test.delete');
 
+Route::get('tests/question/{id}', 'TestController@question')->middleware('auth')->name('tests.question');
+Route::post('/question', 'QuestionController@store')->middleware('auth')->name('question.store');
+Route::put('question/{id}', 'QuestionController@update')->middleware('auth')->name('question.update');
+Route::get('question/{id}/', 'QuestionController@show')->middleware('auth')->name('question.show');
+Route::delete('question/{id}', 'QuestionController@destroy')->middleware('auth')->name('question.delete');
+
 Route::get("position/{id}", 'PositionController@index')->middleware('auth')->name('position.index');
 Route::get("cposition/{id}", 'PositionController@create')->middleware('auth')->name('cposition.create');
 Route::get("eposition/{id}", 'PositionController@edit')->middleware('auth')->name('eposition.edit');

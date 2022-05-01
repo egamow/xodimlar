@@ -41,7 +41,7 @@
                         <th scope="col">Номи</th>
                         <th scope="col" class="text-center" width="200px">Давомийлиги (мин.)</th>
                         @if (auth()->user()->admin)
-                            <th scope="col"  width="180px"></th>@endif
+                            <th scope="col" width="180px"></th>@endif
                     </tr>
                     </thead>
                     <tbody>
@@ -52,7 +52,8 @@
                             <td class="text-center">{{ $test->minutes }} </td>
                             @if (auth()->user()->admin)
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-primary" href="#"><i class="zmdi zmdi-format-list-bulleted "></i></a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('tests.question', $test->id ) }}"><i
+                                                class="zmdi zmdi-format-list-bulleted "></i></a>
                                     <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $test->id }})"
                                        href="#"><i class="zmdi zmdi-edit"></i></a>
                                     <button class="btn btn-sm btn-danger"
