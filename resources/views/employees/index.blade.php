@@ -47,7 +47,7 @@
                 </form>
                 <table class="table table-striped table-bordered">
                     <thead>
-                    <tr class="">
+                    <tr>
                         <th scope="col" width="50px">Табел рақами</th>
                         <th scope="col">Фамилияси, исми ва отасининг исми</th>
                         <th scope="col">Бўлим ва лавозими</th>
