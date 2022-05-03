@@ -218,6 +218,7 @@
                     </li>
                     <li><a href="javascript:void(0)">Тестлар</a>
                         <ul class="sub-menu">
+                            <li><a href="{{ route('course.index') }}">Курслар</a></li>
                             <li><a href="#">Тестлар билан ишлаш</a></li>
                             <li><a href="#">Тест графиклари</a></li>
                             <li><a href="#">Тест натижалари</a></li>

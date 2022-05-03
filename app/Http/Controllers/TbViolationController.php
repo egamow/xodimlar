@@ -12,10 +12,14 @@ class TbViolationController extends Controller
 
     public function index()
     {
-        $tb_violations = TbViolation::select()->with('tbs')->with('user')->get();
+        $tbs = Tb::orderBy('id')->get();
+        $users = User::select('id', 'login', 'firstname', 'lastname')->orderBy('id')->get();
+        $tb_violations = TbViolation::select()->with('tbs')->with('user')->orderBy('id')->get();
 
         return view('tb_violation.index', [
             'tb_violations' => $tb_violations,
+            'tbs' => $tbs,
+            'users' => $users,
         ]);
     }
 
@@ -44,6 +48,7 @@ class TbViolationController extends Controller
     {
         $data = $request->all();
         $data['author_id'] = auth()->id();
+        $data['created_at'] = $violationRequest['created_at'] ?? now();
         TbViolation::create($data);
 
         return redirect()->route('tb_violation.index')
@@ -53,7 +58,7 @@ class TbViolationController extends Controller
 
     public function show(TbViolation $tbViolation)
     {
-        return TbViolation::find($tbViolation);
+        return $tbViolation;
     }
 
 

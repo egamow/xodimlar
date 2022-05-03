@@ -14,6 +14,7 @@ class EmployeeController extends Controller
         $departments = Structure::where('type', 'd')->get();
         $positions = Structure::where('type', 'p')->get();
         $employees = User::where('is_staff', true)
+            ->with('department', 'position')
             ->orderByDesc('created_at');
         $search = $request->input('search');
         if (isset($search)) {
@@ -47,7 +48,7 @@ class EmployeeController extends Controller
         User::create([
             'login' => $request->login,
             'firstname' => $request->firstname,
-            'lastname' => $request->lastname ,
+            'lastname' => $request->lastname,
             'department_id' => $request->department_id ?? null,
             'position_id' => $request->position_id ?: null,
             'middlename' => $request->middlename ?? null,

@@ -71,6 +71,23 @@ Route::resource("td_violation", 'TdViolationController')->middleware('auth');
 
 Route::resource("structure", 'StructureController')->middleware('auth');
 
+Route::ApiResource("course", 'CourseController')->middleware('auth');
+Route::get('courses/group/{id}', 'CourseController@group')->middleware('auth')->name('courses.group');
+Route::put('courses/users/{id}', 'CourseController@users')->middleware('auth')->name('courses.users');
+Route::delete('group/{id}', 'CourseController@group_delete')->middleware('auth')->name('group.delete');
+
+Route::get('courses/test/{id}', 'CourseController@test')->middleware('auth')->name('courses.test');
+Route::post('/test', 'TestController@store')->middleware('auth')->name('test.store');
+Route::put('test/{id}', 'TestController@update')->middleware('auth')->name('test.update');
+Route::get('test/{id}/', 'TestController@show')->middleware('auth')->name('test.show');
+Route::delete('test/{id}', 'TestController@destroy')->middleware('auth')->name('test.delete');
+
+Route::get('tests/question/{id}', 'TestController@question')->middleware('auth')->name('tests.question');
+Route::post('/question', 'QuestionController@store')->middleware('auth')->name('question.store');
+Route::put('question/{id}', 'QuestionController@update')->middleware('auth')->name('question.update');
+Route::get('question/{id}/', 'QuestionController@show')->middleware('auth')->name('question.show');
+Route::delete('question/{id}', 'QuestionController@destroy')->middleware('auth')->name('question.delete');
+
 Route::get("position/{id}", 'PositionController@index')->middleware('auth')->name('position.index');
 Route::get("cposition/{id}", 'PositionController@create')->middleware('auth')->name('cposition.create');
 Route::get("eposition/{id}", 'PositionController@edit')->middleware('auth')->name('eposition.edit');

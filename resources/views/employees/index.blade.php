@@ -47,11 +47,11 @@
                 </form>
                 <table class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th scope="col" width="50px">Табел рақами</th>
-                        <th scope="col">Фамилияси, исми ва отасининг исми</th>
-                        <th scope="col">Бўлим ва лавозими</th>
-                        <th scope="col"></th>
+                    <tr class="">
+                        <th width="" scope="col">Табел рақами</th>
+                        <th width="35%" scope="col">Фамилияси, исми ва отасининг исми</th>
+                        <th width="45%" scope="col">Бўлим ва лавозими</th>
+                        <th width="" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
                                   <i class="material-icons font-14 align-text-bottom">phone</i> {{ $employee->phone }}</p>
                             </td>
                             <td>
-                                {{ $employee->department_name }}<br>{{ $employee->position_name }} </td>
+                                {{ $employee->department->name ?? '' }}<br>{{ $employee->position->name ?? '' }} </td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-info"
                                    href="{{ route('employees.show',$employee->id) }}"><i class="zmdi zmdi-eye"></i></a>
