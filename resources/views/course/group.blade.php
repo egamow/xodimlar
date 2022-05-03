@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="clearfix m-b-20">
-                @if (auth()->user()->admin)
+                @if (auth()->user()->trainer)
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
@@ -29,6 +29,8 @@
                             </div>
                         </div>
                     </div>
+                    <p>Максимал ходим {{ $course->number_of_students }} та кўшиш мумкин</p>
+
                 @endif
 
                 @if ($message = Session::get('success'))
@@ -37,13 +39,12 @@
                     </div>
                 @endif
 
-                <p>Максимал ходим {{ $course->number_of_students }} та кўшиш мумкин</p>
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th scope="col" class="text-center" width="50px">#</th>
                         <th scope="col">Ходим Ф.И.Ш</th>
-                        @if (auth()->user()->admin)
+                        @if (auth()->user()->trainer)
                             <th scope="col" width="50px"></th>@endif
 
                     </tr>
@@ -53,7 +54,7 @@
                         <tr>
                             <td class="text-center">{{ ++$index }}</td>
                             <td>{{ $group->lastname ?? '' }} {{ $group->firstname ?? '' }} {{ $group->middlenam ?? ''}}</td>
-                            @if (auth()->user()->admin)
+                            @if (auth()->user()->trainer)
                                 <td>
                                     <button class="btn btn-sm btn-danger"
                                             onclick="loadDeleteModal({{ $group->pivot->id }})"><i
@@ -73,7 +74,7 @@
         </div>
     </section>
     <!-- Add Modal HTML -->
-    @if (auth()->user()->admin)
+    @if (auth()->user()->trainer)
 
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

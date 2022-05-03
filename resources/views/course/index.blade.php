@@ -59,18 +59,21 @@
                             <td>{{ $course->number_of_lessons }}</td>
                             <td>{{ $course->user1->lastname ?? '' }} {{ $course->user1->firstname ?? '' }} {{ $course->user1->middlenam ?? ''}}</td>
                             <td>{{ $course->user2->lastname ?? '' }} {{ $course->user2->firstname ?? '' }} {{ $course->user2->middlenam ?? ''}}</td>
-                            <td>{{ config('app.month.'.$course->start_month)  }}</td>
+                            <td>{{ date('d.m.Y', strtotime($course->start_month))   }}</td>
                             @if (auth()->user()->admin)
-                            <td>
-                                <a class="btn btn-sm btn-primary" href="{{ route('courses.test', $course->id) }}"><i class="zmdi zmdi-check-all"></i></a>
-                                <a class="btn btn-sm btn-primary" href="{{ route('courses.group', $course->id) }}"><i class="zmdi zmdi-accounts-add"></i></a>
-                                <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
-                                   href="#"><i class="zmdi zmdi-edit"></i></a>
-                                <button class="btn btn-sm btn-danger"
-                                        onclick="loadDeleteModal({{ $course->id }})"><i
-                                            class="zmdi zmdi-delete"></i>
-                                </button>
-                            </td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('courses.test', $course->id) }}"><i
+                                                class="zmdi zmdi-check-all"></i></a>
+                                    <a class="btn btn-sm btn-primary"
+                                       href="{{ route('courses.group', $course->id) }}"><i
+                                                class="zmdi zmdi-accounts-add"></i></a>
+                                    <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
+                                       href="#"><i class="zmdi zmdi-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger"
+                                            onclick="loadDeleteModal({{ $course->id }})"><i
+                                                class="zmdi zmdi-delete"></i>
+                                    </button>
+                                </td>
                             @endif
 
                         </tr>
@@ -87,63 +90,140 @@
     @if (auth()->user()->admin)
 
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="{{route('course.store')}}" method="POST">
-                    @csrf
-                    <div class="modal-header justify-content-center">
-                        <h4 class="title">Қўшиш</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Номи</label>
-                            <input type="text" class="form-control" placeholder="Номи" name="name">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{route('course.store')}}" method="POST">
+                        @csrf
+                        <div class="modal-header justify-content-center">
+                            <h4 class="title">Қўшиш</h4>
                         </div>
-                        <div class="form-group">
-                            <label for="number_of_lessons">Дарслар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Дарслар сони"
-                                   name="number_of_lessons">
-                        </div>
-                        <div class="form-group">
-                            <label for="number_of_students">Ходимлар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
-                                   name="number_of_students">
-                        </div>
-                        <div class="form-group">
-                            <label for="user1_id">Укитувчи</label>
-                            <select required class="form-control show-tick" name="user1_id"
-                                    data-live-search="true">
-                                <option disabled selected> Танланг</option>
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                        - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="user2_id">Укитувчи 2</label>
-                            <select required class="form-control show-tick" name="user2_id"
-                                    data-live-search="true">
-                                <option disabled selected> Танланг</option>
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                        - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="start_month">Дарс бошланиши</label>
-                            <select required class="form-control show-tick" name="start_month">
-                                <option disabled selected> Танланг</option>
-                                @foreach(config('app.month') as $key => $month)
-                                    <option value="{{$key}}">{{$month}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">Номи</label>
+                                <input type="text" class="form-control" placeholder="Номи" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="number_of_lessons">Дарслар сони</label>
+                                <input type="number" step="any" class="form-control" placeholder="Дарслар сони"
+                                       name="number_of_lessons">
+                            </div>
+                            <div class="form-group">
+                                <label for="number_of_students">Ходимлар сони</label>
+                                <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
+                                       name="number_of_students">
+                            </div>
+                            <div class="form-group">
+                                <label for="user1_id">Укитувчи</label>
+                                <select required class="form-control show-tick" name="user1_id"
+                                        data-live-search="true">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user2_id">Укитувчи 2</label>
+                                <select required class="form-control show-tick" name="user2_id"
+                                        data-live-search="true">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="start_month">Дарс бошланиши</label>
+                                <input type="date" class="form-control" name="start_month">
+                                {{--                            <select required class="form-control show-tick" name="start_month">--}}
+                                {{--                                <option disabled selected> Танланг</option>--}}
+                                {{--                                @foreach(config('app.month') as $key => $month)--}}
+                                {{--                                    <option value="{{$key}}">{{$month}}</option>--}}
+                                {{--                                @endforeach--}}
+                                {{--                            </select>--}}
+                            </div>
 
-                        <div class="form-group">
-                            <label for="description">Изох</label>
-                            <textarea type="text" class="form-control" placeholder="Изох" name="description"></textarea>
+                            <div class="form-group">
+                                <label for="description">Изох</label>
+                                <textarea type="text" class="form-control" placeholder="Изох"
+                                          name="description"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                                <button type="button" class="btn btn-simple btn-round waves-effect"
+                                        data-dismiss="modal">
+                                    Бекор килиш
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{--    <!-- Edit Modal HTML -->--}}
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="POST" id="editFormClient">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header justify-content-center">
+                            <h4 class="title" id="defaultModalLabel">Тахрирлаш</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">Номи</label>
+                                <input type="text" class="form-control" placeholder="Номи" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="number_of_lessons">Дарслар сони</label>
+                                <input type="number" step="any" class="form-control" placeholder="Дарслар сони"
+                                       name="number_of_lessons" id="number_of_lessons">
+                            </div>
+                            <div class="form-group">
+                                <label for="number_of_students">Ходимлар сони</label>
+                                <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
+                                       name="number_of_students" id="number_of_students">
+                            </div>
+                            <div class="form-group">
+                                <label for="user1_id">Укитувчи</label>
+                                <select required class="form-control show-tick" name="user1_id" id="user1_id">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user2_id">Укитувчи 2</label>
+                                <select required class="form-control show-tick" name="user2_id" id="user2_id"
+                                        data-live-search="true">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="start_month">Дарс бошланиши</label>
+                                <input type="date" class="form-control" name="start_month" id="start_month">
+                                {{--                            <select required class="form-control show-tick" name="start_month" id="start_month"--}}
+                                {{--                                    data-live-search="true">--}}
+                                {{--                                <option disabled selected> Танланг</option>--}}
+                                {{--                                @foreach(config('app.month') as $key => $month)--}}
+                                {{--                                    <option value="{{$key}}">{{$month}}</option>--}}
+                                {{--                                @endforeach--}}
+                                {{--                            </select>--}}
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Изох</label>
+                                <textarea type="text" class="form-control" placeholder="Изох" id="description"
+                                          name="description"></textarea>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
@@ -151,103 +231,30 @@
                                 Бекор килиш
                             </button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    {{--    <!-- Edit Modal HTML -->--}}
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="editFormClient">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-header justify-content-center">
-                        <h4 class="title" id="defaultModalLabel">Тахрирлаш</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Номи</label>
-                            <input type="text" class="form-control" placeholder="Номи" id="name" name="name">
+        {{-- Delete Modal HTML --}}
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="POST" id="deleteFormClient">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-header justify-content-center">
+                            <h4 class="title" id="defaultModalLabel">Учирмокчимисиз?</h4>
                         </div>
-                        <div class="form-group">
-                            <label for="number_of_lessons">Дарслар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Дарслар сони"
-                                   name="number_of_lessons" id="number_of_lessons">
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
+                            <button type="button" class="btn btn-outline-secondary btn-round waves-effect"
+                                    data-dismiss="modal">Йук
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="number_of_students">Ходимлар сони</label>
-                            <input type="number" step="any" class="form-control" placeholder="Ходимлар сони"
-                                   name="number_of_students" id="number_of_students">
-                        </div>
-                        <div class="form-group">
-                            <label for="user1_id">Укитувчи</label>
-                            <select required class="form-control show-tick" name="user1_id" id="user1_id">
-                                <option disabled selected> Танланг</option>
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                        - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="user2_id">Укитувчи 2</label>
-                            <select required class="form-control show-tick" name="user2_id" id="user2_id"
-                                    data-live-search="true">
-                                <option disabled selected> Танланг</option>
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                        - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="start_month">Дарс бошланиши</label>
-                            <select required class="form-control show-tick" name="start_month" id="start_month"
-                                    data-live-search="true">
-                                <option disabled selected> Танланг</option>
-                                @foreach(config('app.month') as $key => $month)
-                                    <option value="{{$key}}">{{$month}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Изох</label>
-                            <textarea type="text" class="form-control" placeholder="Изох" id="description"
-                                      name="description"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
-                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
-                            Бекор килиш
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    {{-- Delete Modal HTML --}}
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="deleteFormClient">
-                    @csrf
-                    @method('DELETE')
-                    <div class="modal-header justify-content-center">
-                        <h4 class="title" id="defaultModalLabel">Учирмокчимисиз?</h4>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
-                        <button type="button" class="btn btn-outline-secondary btn-round waves-effect"
-                                data-dismiss="modal">Йук
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     @endif
 
     <script>

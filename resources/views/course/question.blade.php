@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="clearfix m-b-20">
-                @if (auth()->user()->admin)
+                @if (auth()->user()->trainer)
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
@@ -40,8 +40,7 @@
                     <tr>
                         <th scope="col" class="text-center" width="50px">#</th>
                         <th scope="col">Номи</th>
-                        @if (auth()->user()->admin)
-                            <th scope="col" width="180px"></th>@endif
+                        <th scope="col" width="180px"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,19 +48,19 @@
                         <tr>
                             <td class="text-center">{{ ++$index }}</td>
                             <td>{{ $question->question }}</td>
-                            @if (auth()->user()->admin)
-                                <td class="text-center">
-                                    <a class="btn btn-sm btn-primary" onclick="loadShowModal({{ $question->id }})"
-                                       href="#"><i class="zmdi zmdi-eye"></i></a>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-primary"
+                                   onclick="loadShowModal({{ $question->id }}, {{ $index }})"
+                                   href="#"><i class="zmdi zmdi-eye"></i></a>
+                                @if (auth()->user()->trainer)
                                     <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $question->id }})"
                                        href="#"><i class="zmdi zmdi-edit"></i></a>
                                     <button class="btn btn-sm btn-danger"
                                             onclick="loadDeleteModal({{ $question->id }})"><i
                                                 class="zmdi zmdi-delete"></i>
                                     </button>
-                                </td>
-                            @endif
-
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -72,7 +71,34 @@
             </div>
         </div>
     </section>
-    @if (auth()->user()->admin)
+    {{--    <!-- Show Modal HTML -->--}}
+    <div class="modal fade" id="showModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <h4 id="show_question"></h4>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <ul class="list-group">
+                            <li class="list-group-item" id="show_answer1"></li>
+                            <li class="list-group-item" id="show_answer2"></li>
+                            <li class="list-group-item" id="show_answer3"></li>
+                            <li class="list-group-item" id="show_answer4"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-round waves-effect" data-dismiss="modal">
+                        Ёпиш
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (auth()->user()->trainer)
         <!-- Add Modal HTML -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
@@ -123,36 +149,6 @@
                             </button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        {{--    <!-- Show Modal HTML -->--}}
-        <div class="modal fade" id="showModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    @csrf
-                    {{--                        <div class="modal-header justify-content-center">--}}
-                    {{--                            <h4 class="title" id="defaultModalLabel">Тахрирлаш</h4>--}}
-                    {{--                        </div>--}}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <h4 id="show_question"></h4>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <ul class="list-group">
-                                <li class="list-group-item" id="show_answer1"></li>
-                                <li class="list-group-item" id="show_answer2"></li>
-                                <li class="list-group-item" id="show_answer3"></li>
-                                <li class="list-group-item" id="show_answer4"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info btn-round waves-effect" data-dismiss="modal">
-                            Ёпиш
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -243,16 +239,17 @@
         }
     </script>
     <script>
-        function loadShowModal(id) {
+        function loadShowModal(id, index) {
             var route = '{{ route("question.show", ":id") }}';
             route = route.replace(':id', id);
             $.get(route, function (data) {
-                $('#show_question').text(data.question);
+                $('#show_question').text(index + '. ' + data.question);
                 $('#show_answer1').text(data.answer1);
                 $('#show_answer2').text(data.answer2);
                 $('#show_answer3').text(data.answer3);
                 $('#show_answer4').text(data.answer4);
 
+                @if ( $test->created_by == auth()->user()->id )
                 if (data.check1) {
                     $('#show_answer1').addClass('active');
                 } else if (data.check2) {
@@ -262,6 +259,8 @@
                 } else if (data.check4) {
                     $('#show_answer4').addClass('active');
                 }
+                @endif
+
                 $('#showModal').modal('show');
             })
         }

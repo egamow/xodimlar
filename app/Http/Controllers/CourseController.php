@@ -36,6 +36,22 @@ class CourseController extends Controller
         return $course;
     }
 
+    public function update(Course $course, Request $request)
+    {
+        $data = $request->all();
+        $course->update($data);
+        return redirect()->route('course.index')
+            ->with('success', 'Муваффақиятли тахрирланди.');
+    }
+
+    public function destroy(Course $course)
+    {
+        $course->delete();
+
+        return redirect()->route('course.index')
+            ->with('success', 'Муваффақиятли ўчирилди');
+    }
+
     public function group($course)
     {
         $users = User::select('id', 'login', 'firstname', 'lastname')->orderBy('id')->get();
@@ -80,20 +96,4 @@ class CourseController extends Controller
         ]);
     }
 
-    public function update(Course $course, Request $request)
-    {
-        $data = $request->all();
-        $course->update($data);
-        return redirect()->route('course.index')
-            ->with('success', 'Муваффақиятли тахрирланди.');
-    }
-
-
-    public function destroy(Course $course)
-    {
-        $course->delete();
-
-        return redirect()->route('course.index')
-            ->with('success', 'Муваффақиятли ўчирилди');
-    }
 }
