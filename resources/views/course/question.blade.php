@@ -250,14 +250,18 @@
                 $('#show_answer4').text(data.answer4);
 
                 @if ( $test->created_by == auth()->user()->id )
-                if (data.check1) {
+                if (data.check1 == 1) {
                     $('#show_answer1').addClass('active');
-                } else if (data.check2) {
+                    console.log(data.check1);
+                } else if (data.check2 == 1) {
                     $('#show_answer2').addClass('active');
-                } else if (data.check3) {
+                    console.log(data.check2);
+                } else if (data.check3 == 1) {
                     $('#show_answer3').addClass('active');
-                } else if (data.check4) {
+                    console.log(data.check3);
+                } else if (data.check4 == 1) {
                     $('#show_answer4').addClass('active');
+                    console.log(data.check4);
                 }
                 @endif
 
@@ -271,7 +275,6 @@
             var action_route = '{{ route("question.update", ":id_update") }}';
             route = route.replace(':id', id);
             $.get(route, function (data) {
-                console.log($('#check4').val());
                 action_route = action_route.replace(':id_update', data.id);
                 $('#editFormClient').attr('action', action_route);
 
