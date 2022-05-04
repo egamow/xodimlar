@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Test;
 use App\Question;
+use App\UserTest;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -51,6 +52,17 @@ class TestController extends Controller
         $test->save();
 
         return redirect()->route('courses.test', $test->course_id);
+    }
+
+    public function start($test)
+    {
+        $test = Test::find($test);
+        $course = Course::where('id', $test->course_id)->first();
+        $users = $course->users->pluck('id')->toArray();
+        $test->update(['begin_date' => now()]);
+        $test->users()->attach($users, ['date_deadline' => $test->begin_date]);
+        return redirect()->route('courses.test', $test->course_id);
+
     }
 
     public function destroy($test)

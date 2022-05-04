@@ -17,6 +17,7 @@ class CreateTestsTable extends Migration
             $table->id();
             $table->integer('course_id');
             $table->string('name');
+            $table->dateTime('begin_date')->nullable();
             $table->smallInteger('minutes');
             $table->string('description')->nullable();
             $table->integer('created_by');

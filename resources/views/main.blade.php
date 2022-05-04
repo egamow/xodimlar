@@ -1,5 +1,7 @@
 ﻿@extends('layout')
-@section('title')Бош саҳифа@endsection
+@section('title')
+    Бош саҳифа
+@endsection
 @section('main_content')
     <!-- Main Content -->
     <section class="content home">
@@ -78,17 +80,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ([1,2,3,4,5] as $index=>$course )
+                                @foreach ($user_new_tests as $index => $user_new_test )
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $user_new_test->name }}</td>
+                                        <td>{{ $user_new_test->countQuestions() }}</td>
+                                        <td>{{ $user_new_test->minutes }}</td>
+                                        <td>{{ date('d.m.Y', strtotime($user_new_test->begin_date)) }}
+                                            <br> {{ date('H:i', strtotime($user_new_test->begin_date))      }}
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            @if( !count([1,2]) )
+                            @if( !count($user_new_tests) )
                                 <div class="align-center">Маълумот йук</div>
                             @endif
                         </div>
@@ -110,16 +114,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ([1,2,3,4,5] as $index=>$course )
+                                @foreach ($user_passed_tests as $index => $user_passed_test )
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $user_passed_test->name }}</td>
+                                        <td>{{ $user_passed_test->result }}</td>
+                                        <td>{{ $user_passed_test->date_result }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            @if( !count([1,2]) )
+                            @if( !count($user_passed_tests) )
                                 <div class="align-center">Маълумот йук</div>
                             @endif
 
@@ -146,7 +150,6 @@
 
     <script src="{{asset('assets/js/pages/calendar/calendar.js')}}"></script>
     <script src="{{asset('assets/js/pages/profile.js')}}"></script>
-
 
 @endsection
 

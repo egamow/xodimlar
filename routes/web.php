@@ -81,6 +81,7 @@ Route::post('/test', 'TestController@store')->middleware('auth')->name('test.sto
 Route::put('test/{id}', 'TestController@update')->middleware('auth')->name('test.update');
 Route::get('test/{id}/', 'TestController@show')->middleware('auth')->name('test.show');
 Route::delete('test/{id}', 'TestController@destroy')->middleware('auth')->name('test.delete');
+Route::put('tests/start/{id}', 'TestController@start')->middleware('auth')->name('tests.start');
 
 Route::get('tests/question/{id}', 'TestController@question')->middleware('auth')->name('tests.question');
 Route::post('/question', 'QuestionController@store')->middleware('auth')->name('question.store');

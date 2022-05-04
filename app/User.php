@@ -62,4 +62,10 @@ class User extends Authenticatable
         return $this->belongsTo(Structure::class, 'department_id');
     }
 
+    public function tests()
+    {
+        return $this->belongsToMany(Test::class, 'user_tests', 'user_id', 'test_id')
+            ->withPivot('result', 'test_status');
+    }
+
 }
