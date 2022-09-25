@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('login')->unique();
             $table->string('password');
-            $table->string('lastname');
-            $table->string('firstname');
+            $table->string('lastname')->nullable();
+            $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
             $table->date('birthdate')->nullable();
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->integer('region_id')->nullable();
             $table->boolean('is_staff')->default(0);
             $table->integer('department_id')->nullable();
