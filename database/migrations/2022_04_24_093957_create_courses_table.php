@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->integer('number_of_lessons');
             $table->integer('user1_id')->unsigned();
             $table->integer('user2_id')->unsigned()->nullable();
+            $table->integer('test_id')->unsigned()->nullable();
             $table->date('start_month');
             $table->text('description')->nullable();
             $table->integer('created_by');

@@ -10,15 +10,19 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
+    public function index()
+    {
+        $tests = Test::all();
+        return view('test.index', compact('tests'));
+    }
+
     public function question($test)
     {
         $test = Test::find($test);
-        $course = Course::where('id', $test->course_id)->first();
         $questions = Question::where('test_id', $test->id)->orderBy('id')->get();
 
-        return view('course.question', [
+        return view('test.question', [
             'test' => $test,
-            'course' => $course,
             'questions' => $questions,
         ]);
     }
@@ -27,14 +31,13 @@ class TestController extends Controller
     {
         $data = $request->all();
         $test = new Test();
-        $test->course_id = $data['course_id'];
         $test->name = $data['name'];
         $test->minutes = $data['minutes'];
         $test->description = $data['description'];
         $test->created_by = auth()->user()->id;
         $test->save();
 
-        return redirect()->route('courses.test', $data['course_id']);
+        return redirect()->route('test.index');
     }
 
     public function show($test)
@@ -51,7 +54,7 @@ class TestController extends Controller
         $test->description = $data['description'];
         $test->save();
 
-        return redirect()->route('courses.test', $test->course_id);
+        return redirect()->route('test.index');
     }
 
     public function start($test)
@@ -70,7 +73,7 @@ class TestController extends Controller
         $test = Test::find($test);
         $test->delete();
 
-        return redirect()->route('courses.test', $test->course_id);
+        return redirect()->route('test.index');
     }
 
 }

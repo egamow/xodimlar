@@ -15,7 +15,6 @@ class CreateTestsTable extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
             $table->string('name');
             $table->dateTime('begin_date')->nullable();
             $table->smallInteger('minutes');

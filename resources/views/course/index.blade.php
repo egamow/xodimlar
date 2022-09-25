@@ -1,5 +1,7 @@
 @extends('layout')
-@section('title')Курслар@endsection
+@section('title')
+    Курслар
+@endsection
 @section('main_content')
     <!-- Main Content -->
     <section class="content profile-page">
@@ -42,11 +44,11 @@
                         <th scope="col">Номи</th>
                         <th scope="col">Ходимлар сони</th>
                         <th scope="col">Дарслар сони</th>
-                        <th scope="col">Укитувчи</th>
-                        <th scope="col">2-Укитувчи</th>
-                        <th scope="col">Дарс бошланиши</th>
+                        <th scope="col">Укитувчилар</th>
+                        <th scope="col">Тест номи</th>
                         @if (auth()->user()->admin)
-                            <th scope="col"></th>@endif
+                            <th scope="col"></th>
+                        @endif
 
                     </tr>
                     </thead>
@@ -54,24 +56,28 @@
                     @foreach ($courses as $index=>$course )
                         <tr>
                             <td class="text-center">{{ ++$index }}</td>
-                            <td>{{ $course->name }}</td>
+                            <td>{{ $course->name }}
+                                <br>
+                                <span
+                                    class="text-secondary">{{ date('d.m.Y', strtotime($course->start_month))   }}</span>
+                            </td>
                             <td>{{ $course->number_of_students }}</td>
                             <td>{{ $course->number_of_lessons }}</td>
-                            <td>{{ $course->user1->lastname ?? '' }} {{ $course->user1->firstname ?? '' }} {{ $course->user1->middlenam ?? ''}}</td>
-                            <td>{{ $course->user2->lastname ?? '' }} {{ $course->user2->firstname ?? '' }} {{ $course->user2->middlenam ?? ''}}</td>
-                            <td>{{ date('d.m.Y', strtotime($course->start_month))   }}</td>
+                            <td>{{ $course->user1->lastname ?? '' }} {{ $course->user1->firstname ?? '' }} {{ $course->user1->middlenam ?? ''}}
+                                <br>
+                                {{ $course->user2->lastname ?? '' }} {{ $course->user2->firstname ?? '' }} {{ $course->user2->middlenam ?? ''}}
+                            </td>
+                            <td>{{ $course->test->name ?? '' }}</td>
                             @if (auth()->user()->admin)
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('courses.test', $course->id) }}"><i
-                                                class="zmdi zmdi-check-all"></i></a>
                                     <a class="btn btn-sm btn-primary"
                                        href="{{ route('courses.group', $course->id) }}"><i
-                                                class="zmdi zmdi-accounts-add"></i></a>
+                                            class="zmdi zmdi-accounts-add"></i></a>
                                     <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
                                        href="#"><i class="zmdi zmdi-edit"></i></a>
                                     <button class="btn btn-sm btn-danger"
                                             onclick="loadDeleteModal({{ $course->id }})"><i
-                                                class="zmdi zmdi-delete"></i>
+                                            class="zmdi zmdi-delete"></i>
                                     </button>
                                 </td>
                             @endif
@@ -113,6 +119,16 @@
                                        name="number_of_students">
                             </div>
                             <div class="form-group">
+                                <label for="test_id">Tect</label>
+                                <select class="form-control show-tick" name="test_id"
+                                        data-live-search="true">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($tests as $test)
+                                        <option value="{{$test->id}}">{{$test->name ?? ''}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="user1_id">Укитувчи</label>
                                 <select required class="form-control show-tick" name="user1_id"
                                         data-live-search="true">
@@ -137,12 +153,6 @@
                             <div class="form-group">
                                 <label for="start_month">Дарс бошланиши</label>
                                 <input type="date" class="form-control" name="start_month">
-                                {{--                            <select required class="form-control show-tick" name="start_month">--}}
-                                {{--                                <option disabled selected> Танланг</option>--}}
-                                {{--                                @foreach(config('app.month') as $key => $month)--}}
-                                {{--                                    <option value="{{$key}}">{{$month}}</option>--}}
-                                {{--                                @endforeach--}}
-                                {{--                            </select>--}}
                             </div>
 
                             <div class="form-group">
@@ -188,49 +198,52 @@
                                        name="number_of_students" id="number_of_students">
                             </div>
                             <div class="form-group">
-                                <label for="user1_id">Укитувчи</label>
-                                <select required class="form-control show-tick" name="user1_id" id="user1_id">
+                                <label for="test_id">Tect</label>
+                                <select class="form-control show-tick" name="test_id"
+                                        data-live-search="true" id="test_id">
                                     <option disabled selected> Танланг</option>
-                                    @foreach($users as $user)
-                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @foreach($tests as $test)
+                                        <option value="{{$test->id}}">{{$test->name ?? ''}}</option>
                                     @endforeach
                                 </select>
+                                <div class="form-group">
+                                    <label for="user1_id">Укитувчи</label>
+                                    <select required class="form-control show-tick" name="user1_id" id="user1_id">
+                                        <option disabled selected> Танланг</option>
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                                - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user2_id">Укитувчи 2</label>
+                                    <select required class="form-control show-tick" name="user2_id" id="user2_id"
+                                            data-live-search="true">
+                                        <option disabled selected> Танланг</option>
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                                - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="start_month">Дарс бошланиши</label>
+                                    <input type="date" class="form-control" name="start_month" id="start_month">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Изох</label>
+                                    <textarea type="text" class="form-control" placeholder="Изох" id="description"
+                                              name="description"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="user2_id">Укитувчи 2</label>
-                                <select required class="form-control show-tick" name="user2_id" id="user2_id"
-                                        data-live-search="true">
-                                    <option disabled selected> Танланг</option>
-                                    @foreach($users as $user)
-                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                    @endforeach
-                                </select>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                                <button type="button" class="btn btn-simple btn-round waves-effect"
+                                        data-dismiss="modal">
+                                    Бекор килиш
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="start_month">Дарс бошланиши</label>
-                                <input type="date" class="form-control" name="start_month" id="start_month">
-                                {{--                            <select required class="form-control show-tick" name="start_month" id="start_month"--}}
-                                {{--                                    data-live-search="true">--}}
-                                {{--                                <option disabled selected> Танланг</option>--}}
-                                {{--                                @foreach(config('app.month') as $key => $month)--}}
-                                {{--                                    <option value="{{$key}}">{{$month}}</option>--}}
-                                {{--                                @endforeach--}}
-                                {{--                            </select>--}}
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Изох</label>
-                                <textarea type="text" class="form-control" placeholder="Изох" id="description"
-                                          name="description"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
-                            <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">
-                                Бекор килиш
-                            </button>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -277,6 +290,7 @@
                 $('#start_month').val(data.start_month);
                 $('#description').val(data.description);
                 $('#editModal').modal('show');
+                $('select[name="test_id"]').val(data.test_id);
                 $('select[name=user1_id]').val(data.user1_id);
                 $('select[name=user2_id]').val(data.user2_id);
                 $('.show-tick').selectpicker('refresh');

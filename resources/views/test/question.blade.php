@@ -7,8 +7,7 @@
             <div class="block-header">
                 <div class="row clearfix">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <h2><a href="{{ route('course.index', $course->id) }}"> {{ $course->name }}</a> /
-                            <a href="{{ route('courses.test', $test->id) }}"> {{ $test->name }}</a> / Саволлар</h2>
+                        <h2><a href="{{ route('test.index', $test->id) }}"> {{ $test->name }}</a> / Саволлар</h2>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <ul class="breadcrumb float-md-right padding-0">

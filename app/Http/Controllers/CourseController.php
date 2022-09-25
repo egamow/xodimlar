@@ -16,6 +16,7 @@ class CourseController extends Controller
 
         return view('course.index', [
             'courses' => Course::orderBy('id')->get(),
+            'tests' => Test::orderBy('id')->get(),
             'users' => $users,
         ]);
     }

@@ -22,4 +22,9 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'groups')->withPivot('id');
     }
+
+    public function test()
+    {
+        return $this->belongsTo(Test::class);
+     }
 }
