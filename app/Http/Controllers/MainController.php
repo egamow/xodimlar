@@ -18,6 +18,7 @@ class MainController extends Controller
         $user = Auth::user();
         $user_new_tests = $user->tests->where('test_status', false);
         $user_passed_tests = $user->tests->where('test_status', true);
+
         return view('main', [
             'user' => $user,
             'user_new_tests' => $user_new_tests,

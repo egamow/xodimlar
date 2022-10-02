@@ -76,19 +76,20 @@
                                     <th scope="col">Саволлар сони</th>
                                     <th scope="col">Давомийлиги (мин.)</th>
                                     <th scope="col">Топшириш муддати</th>
-
+                                    <th>Тестни бошлаш</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($user_new_tests as $index => $user_new_test )
-                                    <tr>
-                                        <td>{{ $user_new_test->name }}</td>
-                                        <td>{{ $user_new_test->countQuestions() }}</td>
-                                        <td>{{ $user_new_test->minutes }}</td>
-                                        <td>{{ date('d.m.Y', strtotime($user_new_test->begin_date)) }}
-                                            <br> {{ date('H:i', strtotime($user_new_test->begin_date))      }}
-                                        </td>
-                                    </tr>
+                                @foreach ($user->groups as $key => $group )
+                                    @if (!$group->test_begin_at)
+                                        <tr>
+                                            <td>{{ $group->course->test->name }}</td>
+                                            <td>{{ $group->course->test?->countQuestions() }}</td>
+                                            <td>{{ $group->course->test?->minutes }}</td>
+                                            <td> {{ $group->course?->test_deadline ? date('d.m.Y', strtotime($group->course?->test_deadline)) : '- - -' }}</td>
+                                            <td><a href="#" class="btn btn-sm btn-primary"><i class="zmdi zmdi-play"></i></a></td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -136,8 +137,10 @@
     </section>
 
     <!-- Jquery Core Js -->
-    <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
-    <script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+    <script
+        src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+    <script
+        src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- slimscroll, waves Scripts Plugin Js -->
 
     <script src="{{asset('assets/bundles/knob.bundle.js')}}"></script> <!-- Jquery Knob-->
     <script src="{{asset('assets/bundles/sparkline.bundle.js')}}"></script> <!-- sparkline Plugin Js -->

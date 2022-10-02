@@ -40,7 +40,6 @@
                     <thead>
                     <tr>
                         <th scope="col" class="text-center" width="50px"></th>
-                        <th scope="col" class="text-center" width="50px">#</th>
                         <th scope="col">Номи</th>
                         <th scope="col" class="text-center" width="200px">Давомийлиги (мин.)</th>
                         <th scope="col" width="180px"></th>
@@ -50,13 +49,6 @@
                     @foreach ($tests as $index => $test)
                         <tr>
                             <td class="text-center">{{ ++$index }}</td>
-                            <td class="text-center">
-                                @if (!$test->begin_date)
-                                    <a href="#" onclick="startTest({{ $test->id }})"> <i class="zmdi zmdi-play"></i> </a>
-                                @else
-                                    <i class="text-secondary zmdi zmdi-play"></i>
-                                @endif
-                            </td>
                             <td>{{ $test->name }}</td>
                             <td class="text-center">{{ $test->minutes }} </td>
                             <td class="text-center">
@@ -154,27 +146,6 @@
                 </div>
             </div>
         </div>
-        {{-- Start Modal HTML --}}
-        <div class="modal fade" id="startModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="" method="POST" id="startFormClient">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-header justify-content-center">
-                            <h4 class="title">Тестга старт берасизми?</h4>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
-                            <button type="button" class="btn btn-outline-secondary btn-round waves-effect"
-                                    data-dismiss="modal">Йук
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        {{-- Delete Modal HTML --}}
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -223,14 +194,6 @@
             route = route.replace(':id', id);
             $('#deleteFormClient').attr('action', route);
             $('#deleteModal').modal('show');
-        }
-    </script>
-    <script>
-        function startTest(id) {
-            var route = '{{ route("tests.start", ":id") }}';
-            route = route.replace(':id', id);
-            $('#startFormClient').attr('action', route);
-            $('#startModal').modal('show');
         }
     </script>
     <script src="{{asset('assets/plugins/sweetalert/sweetalert.min.js')}}"></script>

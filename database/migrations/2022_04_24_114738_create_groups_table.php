@@ -17,6 +17,10 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->integer('course_id');
             $table->integer('user_id');
+            $table->timestamp('test_begin_at')->nullable();
+            $table->integer('spent_time')->nullable();
+            $table->double('result')->nullable();
+            $table->timestamp("date_result")->nullable();
             $table->text('description')->nullable();
         });
     }

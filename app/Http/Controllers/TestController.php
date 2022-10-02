@@ -57,17 +57,6 @@ class TestController extends Controller
         return redirect()->route('test.index');
     }
 
-    public function start($test)
-    {
-        $test = Test::find($test);
-        $course = Course::where('id', $test->course_id)->first();
-        $users = $course->users->pluck('id')->toArray();
-        $test->update(['begin_date' => now()]);
-        $test->users()->attach($users, ['date_deadline' => $test->begin_date]);
-        return redirect()->route('courses.test', $test->course_id);
-
-    }
-
     public function destroy($test)
     {
         $test = Test::find($test);

@@ -74,11 +74,11 @@ Route::resource("structure", 'StructureController')->middleware('auth');
 Route::ApiResource("course", 'CourseController')->middleware('auth');
 Route::get('courses/group/{id}', 'CourseController@group')->middleware('auth')->name('courses.group');
 Route::put('courses/users/{id}', 'CourseController@users')->middleware('auth')->name('courses.users');
+Route::put('courses/start/{id}', 'CourseController@start')->middleware('auth')->name('courses.start');
 Route::delete('group/{id}', 'CourseController@group_delete')->middleware('auth')->name('group.delete');
 
 
 Route::ApiResource("test", 'TestController')->middleware('auth');
-Route::put('tests/start/{id}', 'TestController@start')->middleware('auth')->name('tests.start');
 
 Route::get('tests/question/{id}', 'TestController@question')->middleware('auth')->name('tests.question');
 Route::post('question', 'QuestionController@store')->middleware('auth')->name('question.store');

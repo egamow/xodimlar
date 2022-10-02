@@ -58,8 +58,12 @@
                             <td class="text-center">{{ ++$index }}</td>
                             <td>{{ $course->name }}
                                 <br>
-                                <span
-                                    class="text-secondary">{{ date('d.m.Y', strtotime($course->start_month))   }}</span>
+                                @if($course->begin_date)
+                                    <span
+                                        class="text-secondary">{{ date('d.m.Y', strtotime($course->begin_date))   }}</span>
+                                @else
+                                    <i class=" text-secondary">Бошланмаган</i>
+                                @endif
                             </td>
                             <td>{{ $course->number_of_students }}</td>
                             <td>{{ $course->number_of_lessons }}</td>
@@ -70,12 +74,22 @@
                             <td>{{ $course->test->name ?? '' }}</td>
                             @if (auth()->user()->admin)
                                 <td>
-                                    <a class="btn btn-sm btn-primary"
+                                    @if (!$course->begin_date)
+                                        <a class="btn btn-sm btn-primary" href="#" title="Курсни бошлаш"
+                                           onclick="startTest({{ $course }})">
+                                            <i class="zmdi zmdi-play"></i> </a>
+                                    @else
+                                        <a class=" btn btn-sm btn-secondary" readonly href="#"
+                                           title="Курс  {{ $course->begin_date }} да бошланган">
+                                            <i class="zmdi zmdi-stop"></i></a>
+                                    @endif
+                                    <a class="btn btn-sm btn-primary" title="Курсга ходимлар қўшиш"
                                        href="{{ route('courses.group', $course->id) }}"><i
                                             class="zmdi zmdi-accounts-add"></i></a>
-                                    <a class="btn btn-sm btn-primary" onclick="loadEditModal({{ $course->id }})"
+                                    <a class="btn btn-sm btn-primary" title="Курни таҳрирлаш"
+                                       onclick="loadEditModal({{ $course->id }})"
                                        href="#"><i class="zmdi zmdi-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger"
+                                    <button class="btn btn-sm btn-danger" title="Курсни ўчириш"
                                             onclick="loadDeleteModal({{ $course->id }})"><i
                                             class="zmdi zmdi-delete"></i>
                                     </button>
@@ -92,9 +106,9 @@
             </div>
         </div>
     </section>
-    <!-- Add Modal HTML -->
     @if (auth()->user()->admin)
 
+        <!-- Add Modal HTML -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -119,7 +133,7 @@
                                        name="number_of_students">
                             </div>
                             <div class="form-group">
-                                <label for="test_id">Tect</label>
+                                <label for="test_id">Тест</label>
                                 <select class="form-control show-tick" name="test_id"
                                         data-live-search="true">
                                     <option disabled selected> Танланг</option>
@@ -127,6 +141,11 @@
                                         <option value="{{$test->id}}">{{$test->name ?? ''}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="test_deadline">Тест топширишнинг охирги санаси</label>
+                                <input type="date" class="form-control" placeholder="Тест топширишнинг охирги санаси"
+                                       name="test_deadline">
                             </div>
                             <div class="form-group">
                                 <label for="user1_id">Укитувчи</label>
@@ -151,11 +170,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="start_month">Дарс бошланиши</label>
-                                <input type="date" class="form-control" name="start_month">
-                            </div>
-
-                            <div class="form-group">
                                 <label for="description">Изох</label>
                                 <textarea type="text" class="form-control" placeholder="Изох"
                                           name="description"></textarea>
@@ -172,7 +186,7 @@
                 </div>
             </div>
         </div>
-        {{--    <!-- Edit Modal HTML -->--}}
+        <!-- Edit Modal HTML -->
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -201,54 +215,56 @@
                                 <label for="test_id">Tect</label>
                                 <select class="form-control show-tick" name="test_id"
                                         data-live-search="true" id="test_id">
-                                    <option disabled selected> Танланг</option>
+                                    <option selected value="0"> Танланг</option>
                                     @foreach($tests as $test)
                                         <option value="{{$test->id}}">{{$test->name ?? ''}}</option>
                                     @endforeach
                                 </select>
-                                <div class="form-group">
-                                    <label for="user1_id">Укитувчи</label>
-                                    <select required class="form-control show-tick" name="user1_id" id="user1_id">
-                                        <option disabled selected> Танланг</option>
-                                        @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                                - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="user2_id">Укитувчи 2</label>
-                                    <select required class="form-control show-tick" name="user2_id" id="user2_id"
-                                            data-live-search="true">
-                                        <option disabled selected> Танланг</option>
-                                        @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->login ?? ''}}
-                                                - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="start_month">Дарс бошланиши</label>
-                                    <input type="date" class="form-control" name="start_month" id="start_month">
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Изох</label>
-                                    <textarea type="text" class="form-control" placeholder="Изох" id="description"
-                                              name="description"></textarea>
-                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
-                                <button type="button" class="btn btn-simple btn-round waves-effect"
-                                        data-dismiss="modal">
-                                    Бекор килиш
-                                </button>
+                            <div class="form-group">
+                                <label for="test_deadline">Тест топширишнинг охирги санаси</label>
+                                <input type="date" class="form-control" placeholder="Тест топширишнинг охирги санаси"
+                                       name="test_deadline" id="test_deadline">
                             </div>
-                    </form>
-                </div>
+                            <div class="form-group">
+                                <label for="user1_id">Укитувчи</label>
+                                <select required class="form-control show-tick" name="user1_id" id="user1_id">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user2_id">Укитувчи 2</label>
+                                <select required class="form-control show-tick" name="user2_id" id="user2_id"
+                                        data-live-search="true">
+                                    <option disabled selected> Танланг</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->login ?? ''}}
+                                            - {{$user->lastname ?? ''}} {{$user->firstname ?? ''}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Изох</label>
+                                <textarea type="text" class="form-control" placeholder="Изох" id="description"
+                                          name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-round waves-effect">Саклаш</button>
+                            <button type="button" class="btn btn-simple btn-round waves-effect"
+                                    data-dismiss="modal">
+                                Бекор килиш
+                            </button>
+                        </div>
+                </form>
             </div>
         </div>
-        {{-- Delete Modal HTML --}}
+        </div>
+        <!-- Delete Modal HTML -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -257,6 +273,32 @@
                         @method('DELETE')
                         <div class="modal-header justify-content-center">
                             <h4 class="title" id="defaultModalLabel">Учирмокчимисиз?</h4>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
+                            <button type="button" class="btn btn-outline-secondary btn-round waves-effect"
+                                    data-dismiss="modal">Йук
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- Start Modal HTML --}}
+        <div class="modal fade" id="startModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="POST" id="startFormClient">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header justify-content-center">
+                            <h4 class="title">Курсга бошлаш</h4>
+                        </div>
+                        <div class="modal-body justify-content-center">
+                            <div class="form-group">
+                                <label for="begin_date">Санани киритинг</label>
+                                <input required type="date" class="form-control" name="begin_date" id="begin_date">
+                            </div>
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button type="submit" class="btn btn-danger btn-round waves-effect">Ха</button>
@@ -287,7 +329,8 @@
                 $('#name').val(data.name);
                 $('#number_of_students').val(data.number_of_students);
                 $('#number_of_lessons').val(data.number_of_lessons);
-                $('#start_month').val(data.start_month);
+                $('#begin_date').val(data.begin_date);
+                $('#test_deadline').val(data.test_deadline);
                 $('#description').val(data.description);
                 $('#editModal').modal('show');
                 $('select[name="test_id"]').val(data.test_id);
@@ -304,6 +347,29 @@
             route = route.replace(':id', id);
             $('#deleteFormClient').attr('action', route);
             $('#deleteModal').modal('show');
+        }
+    </script>
+    <script>
+        function startTest(course) {
+            let hasTest = Boolean(course.test_id);
+            let hasUsers = Boolean(course.users_count);
+
+            if (!hasTest && !hasUsers) {
+                alert('Курсни бошлаш учун тестни танланг ва ходимларни кўшинг!!');
+                return;
+            }
+
+            if (!hasUsers) {
+                alert('Курсга ходим бириктирилмаган!');
+            }
+            if (!hasTest) {
+                alert('Курсга тест бириктирилмаган!');
+            } else {
+                var route = '{{ route("courses.start", ":id") }}';
+                route = route.replace(':id', course.id);
+                $('#startFormClient').attr('action', route);
+                $('#startModal').modal('show');
+            }
         }
     </script>
     <script src="{{asset('assets/plugins/sweetalert/sweetalert.min.js')}}"></script>

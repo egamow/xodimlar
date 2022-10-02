@@ -15,7 +15,7 @@ class CourseController extends Controller
         $users = User::select('id', 'login', 'firstname', 'lastname')->where('trainer', true)->orderBy('id')->get();
 
         return view('course.index', [
-            'courses' => Course::orderBy('id')->get(),
+            'courses' => Course::withCount('users')->orderBy('id')->get(),
             'tests' => Test::orderBy('id')->get(),
             'users' => $users,
         ]);
@@ -31,10 +31,26 @@ class CourseController extends Controller
             ->with('success', 'Муваффақиятли қўшилди.');
     }
 
-
     public function show(Course $course)
     {
         return $course;
+    }
+
+    public function start($course, Request $request)
+    {
+        $course = Course::find($course);
+
+        if (!$course->test_id || $course->withCount('users')->count() < 1) {
+            return redirect()->route('course.index')
+                ->with('error', 'Курсни бошлаш учун тестни танланг ва ходимларни кўшинг.');
+        }
+
+        $course->begin_date = $request->begin_date;
+        $course->save();
+        $users = $course->users->pluck('id')->toArray();
+        $course->test->users()->attach($users, ['date_deadline' => $course->begin_date]);
+        return redirect()->route('course.index');
+
     }
 
     public function update(Course $course, Request $request)

@@ -68,4 +68,9 @@ class User extends Authenticatable
             ->withPivot('result', 'test_status');
     }
 
+    public function groups()
+    {
+        return $this->hasMany(Group::class, 'user_id');
+    }
+
 }
